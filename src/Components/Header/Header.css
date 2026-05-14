@@ -1,0 +1,51 @@
+/* Contenedor principal */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Deja espacio para cuando agregues la parte derecha */
+  padding: 10px 20px; /* El tono oscuro del fondo */
+  height: 60px;
+  border-bottom: 1px solid #30363d; /* Línea sutil divisoria */
+}
+
+/* Estilo del Logo */
+header img {
+  height: 35px;
+  width: auto;
+  cursor: pointer;
+}
+
+/* Contenedor del buscador */
+header form {
+  flex-grow: 1; /* Permite que el form ocupe espacio, pero lo limitaremos */
+  display: flex;
+  justify-content: center;
+}
+
+header input {
+  background-color: #161b22; /* Color más oscuro para el input */
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 5px 12px 5px 35px; /* Padding izquierdo extra para el icono */
+  width: 100%;
+  max-width: 350px; /* Tamaño máximo similar al de la imagen */
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+header input:focus {
+  border-color: #58a6ff; /* Resalte azul al hacer clic */
+  background-color: #0d1117;
+}
+
+/* Estilo del placeholder */
+header input::placeholder {
+  color: #8b949e;
+  font-size: 14px;
+}
+
+nav img{
+    margin-left: 10px;
+}
