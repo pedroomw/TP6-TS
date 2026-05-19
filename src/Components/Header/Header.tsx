@@ -3,7 +3,7 @@ import './Header.css'
 const Header = () => {
     return(
         <header>
-        <img src="src/assets/LogoInstagram.png" alt="jhsadjhsad" />
+        <img src="src/assets/Logo/LogoInstagram.png" alt="jhsadjhsad" />
         <form><img src="src/assets/Icons/SearchIcon.svg" alt="" /><input type="text" placeholder = "Username, hashtag and story search"/></form>
         <nav>
             <img src="src/assets/Icons/SettingsIcon.svg" alt="" />
