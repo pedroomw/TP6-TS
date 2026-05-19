@@ -1,6 +1,6 @@
 import './Feed.css'
 import {useState} from 'react'
-import Stories from '../Stories/Stories.jsx'
+import Stories from '../Stories/Stories.js'
 import listJson from '../../objects/storiesList.ts'
 
 const Feed = () => {    

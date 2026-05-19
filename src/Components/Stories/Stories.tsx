@@ -7,9 +7,9 @@ const Stories = ({storiesList}) => {
         <section className = "stories">
             <h1>STORIES</h1>
             {
-                storiesList.map((storyData) => {
+                storiesList.map((storyData) => (
                 <Story storyData = {storyData}/>
-                })
+                ))
             }
         </section>
     )
