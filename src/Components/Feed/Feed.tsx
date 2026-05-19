@@ -1,8 +1,10 @@
 import './Feed.css'
+import {useState} from 'react'
 import Stories from '../Stories/Stories.jsx'
-import storiesList from '../../objects/storiesList.ts'
+import listJson from '../../objects/storiesList.ts'
 
-const Feed = () => {
+const Feed = () => {    
+    const[storiesList, setstoriesList] = useState(listJson)
     return(
         <section className = "feed">
             <Stories storiesList = {storiesList}/>

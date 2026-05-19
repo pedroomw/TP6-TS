@@ -1,12 +1,14 @@
 import './Story.css'
+import type StoryInterface from '../../types/stories.ts'
 
-const Story = ({profilepic, username}) => {
+const Story = (storyData : StoryInterface) => {
+    console.log('{storyData}')
     return(
         <div className = "story">
-            <img src={profilepic} alt="" />
-            <h3>{username}</h3>
+            <img src={storyData.img} alt="" />
+            <h3>{storyData.username}</h3>
         </div>
-    )
+    )   
 }
 
 export default Story;

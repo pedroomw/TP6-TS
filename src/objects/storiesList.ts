@@ -1,6 +1,6 @@
-import type Story from '../types/stories.ts'
+import type StoryInterface from '../types/stories.ts'
 
-const storiesList: Story[] = [
+const storiesList: StoryInterface[] = [
     {img: "src/assets/Profile-Pics/PFP-1", username: "elPibeLeji"},
     {img: "src/assets/Profile-Pics/PFP-2", username: "Pop"},
     {img: "src/assets/Profile-Pics/PFP-3", username: "Scheckman_12"},
