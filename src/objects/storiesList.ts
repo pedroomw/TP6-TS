@@ -1,11 +1,11 @@
 import type StoryInterface from '../types/stories.ts'
 
 const storiesList: StoryInterface[] = [
-    {img: "src/assets/Profile-Pics/PFP-1", username: "elPibeLeji"},
-    {img: "src/assets/Profile-Pics/PFP-2", username: "Pop"},
-    {img: "src/assets/Profile-Pics/PFP-3", username: "Scheckman_12"},
-    {img: "src/assets/Profile-Pics/PFP-4", username: "Agus_Aiello_ElPollon"},
-    {img: "src/assets/Profile-Pics/PFP-5", username: "FifTheMan"}
+    {img: "../assets/Profile-Pics/PFP-1.jpg", username: "elPibeLeji"},
+    {img: "../assets/Profile-Pics/PFP-2.jpg", username: "Pop"},
+    {img: "../assets/Profile-Pics/PFP-3.jpg", username: "Scheckman_12"},
+    {img: "../assets/Profile-Pics/PFP-4.jfif", username: "Agus_Aiello_ElPollon"},
+    {img: "../assets/Profile-Pics/PFP-5.jpeg", username: "FifTheMan"}
 ]
 
-export default storiesList
+export default storiesList 
