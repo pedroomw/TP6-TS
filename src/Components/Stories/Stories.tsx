@@ -1,18 +1,21 @@
-import './Stories.css'
-import Story from '../Story/Story.tsx'
-import type StoryInterface from '../../types/stories.ts'
+import './Stories.css';
+import Story from '../Story/Story.tsx';
+import { storyUsers } from '../../objects/mockData.ts';
 
-const Stories = ({storiesList}) => {
-    return(
-        <section className = "stories">
-            <h1>STORIES</h1>
-            {
-                storiesList.map((storyData : StoryInterface) => (
-                <Story {...storyData}/>
-                ))
-            }
-        </section>
-    )
-}
+const Stories = () => {
+  return (
+    <section className="stories">
+      {storyUsers.map((user, i) => (
+        <Story
+          key={user.username}
+          username={user.username}
+          avatar={user.avatar}
+          isOwn={user.isOwn ?? false}
+          index={i}
+        />
+      ))}
+    </section>
+  );
+};
 
 export default Stories;

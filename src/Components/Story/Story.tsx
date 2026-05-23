@@ -1,14 +1,24 @@
-import './Story.css'
-import type StoryInterface from '../../types/stories.ts'
+import { useState } from 'react';
+import './Story.css';
 
-const Story = (storyData : StoryInterface) => {
-    console.log(storyData.img)
-    return(        
-        <div className = "story">
-            <img src={storyData.img} alt="lalala" />
-            <h3>{storyData.username}</h3>
-        </div>
-    )   
+interface StoryProps {
+  username: string;
+  avatar: string;
+  isOwn?: boolean;
+  index: number;
 }
+
+const Story = ({ username, avatar, isOwn = false, index }: StoryProps) => {
+  const [viewed, setViewed] = useState(false);
+
+  return (
+    <button className={`story ${viewed ? 'viewed' : ''}`} onClick={() => setViewed(true)}>
+      <div className="story-ring">
+        <img src={avatar} alt={username} />
+      </div>
+      <span>{username}</span>
+    </button>
+  );
+};
 
 export default Story;

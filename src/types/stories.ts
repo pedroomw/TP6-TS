@@ -1,4 +1,6 @@
 export default interface StoryInterface{
-    img: string;
+    avatar: string;
     username: string;
+    isOwn?: boolean;
+    index?: number;
 }

@@ -1,19 +1,36 @@
-import './Header.css'
+import './Header.css';
+import type { AppView } from '../../types/index.ts';
 
-const Header = () => {
-    return(
-        <header>
-        <img src="src/assets/Logo/LogoInstagram.png" alt="jhsadjhsad" />
-        <form><img src="src/assets/Icons/SearchIcon.svg" alt="" /><input type="text" placeholder = "Username, hashtag and story search"/></form>
-        <nav>
-            <img src="src/assets/Icons/SettingsIcon.svg" alt="" />
-            <img src="src/assets/Icons/CameraIcon.svg" alt="" />
-            <img src="src/assets/Icons/DMIcon.svg" alt="" />   
-        </nav>
-        
-        <button></button>
-        </header>
-    )
+interface HeaderProps {
+  currentView: AppView;
+  onGoFeed: () => void;
+  onGoProfile: () => void;
 }
 
-export default Header
+const Header = ({ currentView, onGoFeed, onGoProfile }: HeaderProps) => {
+  return (
+    <header>
+      {/* Tu logo existente */}
+      <img
+        src="src/assets/Logo/LogoInstagram.png"
+        alt="logo"
+        onClick={onGoFeed}
+        style={{ cursor: 'pointer' }}
+      />
+
+      {/* Tu búsqueda existente */}
+      <form>
+        <img src="src/assets/Icons/SearchIcon.svg" alt="" />
+        <input type="text" placeholder="Buscar" />
+      </form>
+
+      <nav>
+        <img src="src/assets/Icons/SettingsIcon.svg" alt="" onClick={onGoProfile} style={{ cursor: 'pointer' }} />
+        <img src="src/assets/Icons/CameraIcon.svg" alt="" />
+        <img src="src/assets/Icons/DMIcon.svg" alt="" />
+      </nav>
+    </header>
+  );
+};
+
+export default Header;
