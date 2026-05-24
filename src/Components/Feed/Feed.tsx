@@ -16,8 +16,7 @@ interface FeedProps {
 const Feed = ({ posts, loading, error, onSelectPost, onToggleLike, onToggleSave }: FeedProps) => {
   return (
     <section className="feed">
-      <Stories />   /* ← ya no necesita props, usa mockData internamente */
-
+      <Stories />   
       {error && <p style={{ color: 'red', padding: '16px' }}>{error}</p>}
       {loading && <p style={{ padding: '16px' }}>Cargando gatos... 🐱</p>}
 

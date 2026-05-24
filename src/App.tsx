@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './Components/Header/Header.tsx';
 import Feed from './Components/Feed/Feed.tsx';
 import PostDetail from './Components/postDetail/postDetail.tsx';
@@ -12,44 +12,62 @@ function App() {
   const [currentView, setCurrentView] = useState<AppView>('feed');
   const [selectedPost, setSelectedPost] = useState<CatPost | null>(null);
 
-  const handleSelectPost = (post: CatPost) => {
-    setSelectedPost(post);
-    setCurrentView('detail');
-  };
+ const [scrollPosition, setScrollPosition] = useState(0);
 
-  return (
-    <>
-      <Header
-        currentView={currentView}
-        onGoFeed={() => { setSelectedPost(null); setCurrentView('feed'); }}
-        onGoProfile={() => setCurrentView('profile')}
+const handleSelectPost = (post: CatPost) => {
+  console.log('scroll guardado:', window.scrollY);
+  setScrollPosition(window.scrollY);
+  setSelectedPost(post);
+  setCurrentView('detail');
+  window.scrollTo({ top: 0 });
+};
+
+const handleGoBack = () => {
+  console.log('scroll a restaurar:', scrollPosition);
+  setSelectedPost(null);
+  setCurrentView('feed');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      console.log('ejecutando scroll a:', scrollPosition);
+      window.scrollTo({ top: scrollPosition });
+    });
+  });
+};
+
+return (
+  <>
+    <Header
+      currentView={currentView}
+      onGoFeed={() => { setSelectedPost(null); setCurrentView('feed'); window.scrollTo({ top: 0 }); }}
+      onGoProfile={() => setCurrentView('profile')}
+    />
+
+    {/* Feed siempre montado, solo se oculta */}
+    <div style={{ display: currentView === 'feed' ? 'block' : 'none' }}>
+      <Feed
+        posts={posts}
+        loading={loading}
+        error={error}
+        onSelectPost={handleSelectPost}
+        onToggleLike={toggleLike}
+        onToggleSave={toggleSave}
       />
+    </div>
 
-      {currentView === 'feed' && (
-        <Feed
-          posts={posts}
-          loading={loading}
-          error={error}
-          onSelectPost={handleSelectPost}
-          onToggleLike={toggleLike}
-          onToggleSave={toggleSave}
-        />
-      )}
+    {currentView === 'detail' && selectedPost && (
+      <PostDetail
+        post={selectedPost}
+        onGoBack={handleGoBack}
+        onToggleLike={toggleLike}
+        onToggleSave={toggleSave}
+      />
+    )}
 
-      {currentView === 'detail' && selectedPost && (
-        <PostDetail
-          post={selectedPost}
-          onGoBack={() => { setSelectedPost(null); setCurrentView('feed'); }}
-          onToggleLike={toggleLike}
-          onToggleSave={toggleSave}
-        />
-      )}
-
-      {currentView === 'profile' && (
-        <Profile posts={posts} onSelectPost={handleSelectPost} />
-      )}
-    </>
-  );
+    {currentView === 'profile' && (
+      <Profile posts={posts} onSelectPost={handleSelectPost} />
+    )}
+  </>
+);
 }
 
 export default App;

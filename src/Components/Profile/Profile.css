@@ -18,7 +18,7 @@
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  border: 2px solid #2a2a2a;
+  border: 3px solid #2a1f5a;
 }
 
 .profile-info {
@@ -42,15 +42,16 @@
 
 .profile-edit-btn {
   padding: 7px 16px;
-  background: #262626;
-  border: 1px solid #363636;
-  border-radius: 6px;
+  background: #1c1240;
+  border: 1px solid #2a1f5a;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   color: #f5f5f5;
   cursor: pointer;
+  transition: background 0.2s;
 }
-.profile-edit-btn:hover { background: #363636; }
+.profile-edit-btn:hover { background: #2a1f5a; }
 
 .profile-stats {
   display: flex;
@@ -67,17 +68,16 @@
 
 .profile-bio {
   font-size: 14px;
-  color: #f5f5f5;
+  color: #c4b5fd;
   line-height: 1.5;
 }
 
 .profile-divider {
   border: none;
-  border-top: 1px solid #2a2a2a;
+  border-top: 1px solid #2a1f5a;
   margin-bottom: 4px;
 }
 
-/* Grilla */
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -88,7 +88,7 @@
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: #262626;
+  background: #1c1240;
   border: none;
   cursor: pointer;
   padding: 0;
@@ -108,7 +108,7 @@
 .profile-grid-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(16, 10, 44, 0.65);
   display: flex;
   align-items: center;
   justify-content: center;

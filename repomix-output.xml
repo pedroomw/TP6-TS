@@ -65,12 +65,20 @@ src/Components/Header/Header.css
 src/Components/Header/Header.tsx
 src/Components/Menu/Menu.css
 src/Components/Menu/Menu.tsx
+src/Components/Post/Post.css
+src/Components/Post/Post.tsx
+src/Components/postDetail/postDetail.css
+src/Components/postDetail/postDetail.tsx
+src/Components/Profile/Profile.css
+src/Components/Profile/Profile.tsx
 src/Components/Stories/Stories.css
 src/Components/Stories/Stories.tsx
 src/Components/Story/Story.css
 src/Components/Story/Story.tsx
+src/hooks/usePost.ts
 src/main.tsx
-src/objects/storiesList.ts
+src/objects/mockData.ts
+src/types/index.ts
 src/types/stories.ts
 tsconfig.app.json
 tsconfig.json
@@ -356,10 +364,837 @@ const Menu = () => {
 export default Menu;
 </file>
 
+<file path="src/Components/Post/Post.css">
+.post {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+/* Header */
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
+.post-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-username {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f5f5f5;
+}
+
+.post-more {
+  background: none;
+  border: none;
+  color: #f5f5f5;
+  font-size: 18px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+/* Imagen */
+.post-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #262626;
+  cursor: zoom-in;
+}
+
+.post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Acciones */
+.post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px 4px;
+}
+
+.post-actions-left {
+  display: flex;
+  gap: 4px;
+}
+
+.action-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  border-radius: 50%;
+  transition: transform 0.15s ease;
+}
+.action-btn:hover { transform: scale(1.15); }
+.action-btn.liked { animation: heartPop 0.3s ease; }
+
+@keyframes heartPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+/* Body */
+.post-body {
+  padding: 0 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.post-likes {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+.post-caption {
+  font-size: 14px;
+  color: #f5f5f5;
+  line-height: 1.5;
+}
+
+.post-caption-user {
+  font-weight: 700;
+}
+
+.post-tags {
+  font-size: 13px;
+  color: #0095f6;
+}
+
+.post-comments-link {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #737373;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+.post-comments-link:hover { color: #a8a8a8; }
+
+.post-date {
+  font-size: 11px;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* Agregar comentario */
+.post-add-comment {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.comment-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.post-add-comment input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #f5f5f5;
+}
+.post-add-comment input::placeholder { color: #737373; }
+
+.comment-submit {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0095f6;
+  cursor: pointer;
+}
+.comment-submit:hover { color: #1877f2; }
+</file>
+
+<file path="src/Components/Post/Post.tsx">
+import { useState } from 'react';
+import './Post.css';
+import type { CatPost } from '../../types/index.ts';
+import { currentUser } from '../../objects/mockData.ts';
+
+interface PostProps {
+  post: CatPost;
+  onSelectPost: (post: CatPost) => void;
+  onToggleLike: (id: string) => void;
+  onToggleSave: (id: string) => void;
+  index: number;
+}
+
+const Post = ({ post, onSelectPost, onToggleLike, onToggleSave }: PostProps) => {
+  const [commentText, setCommentText] = useState('');
+
+  const handleDoubleTap = () => {
+    if (!post.liked) onToggleLike(post.id);
+  };
+
+  return (
+    <article className="post">
+
+      {/* Header */}
+      <div className="post-header">
+        <div className="post-user">
+          <img
+            src={`https://api.dicebear.com/8.x/avataaars/svg?seed=${post.username}`}
+            alt={post.username}
+            className="post-avatar"
+          />
+          <span className="post-username">{post.username}</span>
+        </div>
+        <button className="post-more">···</button>
+      </div>
+
+      {/* Imagen */}
+      <div className="post-image-wrapper" onDoubleClick={handleDoubleTap}>
+        <img
+          src={post.url}
+          alt={post.caption}
+          className="post-image"
+          onClick={() => onSelectPost(post)}
+        />
+      </div>
+
+      {/* Acciones */}
+      <div className="post-actions">
+        <div className="post-actions-left">
+          <button
+            className={`action-btn ${post.liked ? 'liked' : ''}`}
+            onClick={() => onToggleLike(post.id)}
+          >
+            {post.liked ? '❤️' : '🤍'}
+          </button>
+          <button className="action-btn" onClick={() => onSelectPost(post)}>
+            💬
+          </button>
+          <button className="action-btn">
+            📤
+          </button>
+        </div>
+        <button
+          className={`action-btn ${post.saved ? 'saved' : ''}`}
+          onClick={() => onToggleSave(post.id)}
+        >
+          {post.saved ? '🔖' : '🔖'}
+        </button>
+      </div>
+
+      {/* Info */}
+      <div className="post-body">
+        <p className="post-likes">{post.likes.toLocaleString('es-AR')} Me gusta</p>
+
+        <p className="post-caption">
+          <span className="post-caption-user">{post.username}</span> {post.caption}
+        </p>
+
+        <p className="post-tags">{post.tags.join(' ')}</p>
+
+        <button className="post-comments-link" onClick={() => onSelectPost(post)}>
+          Ver los {post.comments.length} comentarios
+        </button>
+
+        <p className="post-date">{post.date}</p>
+      </div>
+
+      {/* Agregar comentario */}
+      <div className="post-add-comment">
+        <img src={currentUser.avatar} alt={currentUser.username} className="comment-avatar" />
+        <input
+          type="text"
+          placeholder="Agregá un comentario..."
+          value={commentText}
+          onChange={e => setCommentText(e.target.value)}
+        />
+        {commentText && (
+          <button className="comment-submit" onClick={() => setCommentText('')}>
+            Publicar
+          </button>
+        )}
+      </div>
+
+    </article>
+  );
+};
+
+export default Post;
+</file>
+
+<file path="src/Components/postDetail/postDetail.css">
+.detail-wrapper {
+  max-width: 935px;
+  margin: 80px auto 0;
+  padding: 24px 20px;
+}
+
+.detail-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #8b949e;
+  margin-bottom: 16px;
+  display: block;
+}
+.detail-back:hover { color: #f5f5f5; }
+
+.detail-card {
+  display: flex;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #1a1a1a;
+  min-height: 600px;
+}
+
+.detail-image-side {
+  flex: 1;
+  background: #000;
+  display: flex;
+  align-items: center;
+}
+
+.detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 80vh;
+}
+
+.detail-info-side {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #2a2a2a;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.detail-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.detail-avatar-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.detail-username {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+.detail-divider {
+  border: none;
+  border-top: 1px solid #2a2a2a;
+  margin: 0;
+}
+
+.detail-caption {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  font-size: 14px;
+  color: #f5f5f5;
+  line-height: 1.5;
+}
+
+.detail-comments {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-comment {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: #f5f5f5;
+}
+
+.comment-time {
+  font-size: 12px;
+  color: #737373;
+  margin-top: 4px;
+  display: block;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.like-btn, .save-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #f5f5f5;
+}
+
+.like-btn.liked { color: #e1306c; }
+.save-btn.saved { color: #0095f6; }
+
+.detail-date {
+  font-size: 11px;
+  color: #737373;
+  padding: 0 16px 12px;
+  text-transform: uppercase;
+}
+
+.detail-add-comment {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+}
+
+.detail-add-comment input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #f5f5f5;
+}
+
+.detail-add-comment input::placeholder { color: #737373; }
+
+.comment-submit {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0095f6;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+</file>
+
+<file path="src/Components/postDetail/postDetail.tsx">
+import { useState } from 'react';
+import './postDetail.css';
+import type { CatPost } from '../../types/index.ts';
+import { currentUser } from '../../objects/mockData.ts';
+
+interface PostDetailProps {
+  post: CatPost;
+  onGoBack: () => void;
+  onToggleLike: (id: string) => void;
+  onToggleSave: (id: string) => void;
+}
+
+const PostDetail = ({ post, onGoBack, onToggleLike, onToggleSave }: PostDetailProps) => {
+  const [commentText, setCommentText] = useState('');
+
+  return (
+    <div className="detail-wrapper">
+      <button className="detail-back" onClick={onGoBack}>
+        ← Volver al feed
+      </button>
+
+      <div className="detail-card">
+        {/* Imagen grande */}
+        <div className="detail-image-side">
+          <img src={post.url} alt={post.caption} className="detail-image" />
+        </div>
+
+        {/* Panel derecho */}
+        <div className="detail-info-side">
+
+          {/* Header del usuario */}
+          <div className="detail-header">
+            <img
+              src={`https://api.dicebear.com/8.x/avataaars/svg?seed=${post.username}`}
+              alt={post.username}
+              className="detail-avatar"
+            />
+            <span className="detail-username">{post.username}</span>
+          </div>
+
+          <hr className="detail-divider" />
+
+          {/* Caption */}
+          <div className="detail-caption">
+            <img
+              src={`https://api.dicebear.com/8.x/avataaars/svg?seed=${post.username}`}
+              alt={post.username}
+              className="detail-avatar-sm"
+            />
+            <p>
+              <strong>{post.username}</strong> {post.caption}
+            </p>
+          </div>
+
+          {/* Comentarios */}
+          <div className="detail-comments">
+            {post.comments.map(comment => (
+              <div key={comment.id} className="detail-comment">
+                <img
+                  src={`https://api.dicebear.com/8.x/avataaars/svg?seed=${comment.username}`}
+                  alt={comment.username}
+                  className="detail-avatar-sm"
+                />
+                <div>
+                  <p><strong>{comment.username}</strong> {comment.text}</p>
+                  <span className="comment-time">{comment.time}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <hr className="detail-divider" />
+
+          {/* Acciones */}
+          <div className="detail-actions">
+            <button
+              className={`like-btn ${post.liked ? 'liked' : ''}`}
+              onClick={() => onToggleLike(post.id)}
+            >
+              {post.liked ? '❤️' : '🤍'} {post.likes.toLocaleString('es-AR')} Me gusta
+            </button>
+            <button
+              className={`save-btn ${post.saved ? 'saved' : ''}`}
+              onClick={() => onToggleSave(post.id)}
+            >
+              {post.saved ? '🔖 Guardado' : '🔖 Guardar'}
+            </button>
+          </div>
+
+          <p className="detail-date">{post.date}</p>
+
+          <hr className="detail-divider" />
+
+          {/* Agregar comentario */}
+          <div className="detail-add-comment">
+            <img src={currentUser.avatar} alt={currentUser.username} className="detail-avatar-sm" />
+            <input
+              type="text"
+              placeholder="Agregá un comentario..."
+              value={commentText}
+              onChange={e => setCommentText(e.target.value)}
+            />
+            {commentText && (
+              <button className="comment-submit" onClick={() => setCommentText('')}>
+                Publicar
+              </button>
+            )}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PostDetail;
+</file>
+
+<file path="src/Components/Profile/Profile.css">
+.profile-wrapper {
+  max-width: 935px;
+  margin: 80px auto 0;
+  padding: 32px 20px;
+}
+
+.profile-header {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  margin-bottom: 44px;
+  padding: 0 16px;
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #2a2a2a;
+}
+
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-top-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-username {
+  font-size: 20px;
+  font-weight: 400;
+  color: #f5f5f5;
+}
+
+.profile-edit-btn {
+  padding: 7px 16px;
+  background: #262626;
+  border: 1px solid #363636;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+.profile-edit-btn:hover { background: #363636; }
+
+.profile-stats {
+  display: flex;
+  gap: 32px;
+  font-size: 16px;
+  color: #f5f5f5;
+}
+
+.profile-fullname {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+.profile-bio {
+  font-size: 14px;
+  color: #f5f5f5;
+  line-height: 1.5;
+}
+
+.profile-divider {
+  border: none;
+  border-top: 1px solid #2a2a2a;
+  margin-bottom: 4px;
+}
+
+/* Grilla */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+
+.profile-grid-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #262626;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.profile-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.profile-grid-item:hover img {
+  transform: scale(1.05);
+}
+
+.profile-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.profile-grid-item:hover .profile-grid-overlay {
+  opacity: 1;
+}
+</file>
+
+<file path="src/Components/Profile/Profile.tsx">
+import './Profile.css';
+import { currentUser } from '../../objects/mockData.ts';
+import type { CatPost } from '../../types/index.ts';
+
+interface ProfileProps {
+  posts: CatPost[];
+  onSelectPost: (post: CatPost) => void;
+}
+
+const Profile = ({ posts, onSelectPost }: ProfileProps) => {
+  return (
+    <div className="profile-wrapper">
+
+      {/* Header del perfil */}
+      <div className="profile-header">
+        <img src={currentUser.avatar} alt={currentUser.username} className="profile-avatar" />
+
+        <div className="profile-info">
+          <div className="profile-top-row">
+            <h2 className="profile-username">{currentUser.username}</h2>
+            <button className="profile-edit-btn">Editar perfil</button>
+          </div>
+
+          <div className="profile-stats">
+            <span><strong>{posts.length}</strong> publicaciones</span>
+            <span><strong>{currentUser.followers.toLocaleString('es-AR')}</strong> seguidores</span>
+            <span><strong>{currentUser.following}</strong> seguidos</span>
+          </div>
+
+          <p className="profile-fullname">{currentUser.fullName}</p>
+          <p className="profile-bio">{currentUser.bio}</p>
+        </div>
+      </div>
+
+      <hr className="profile-divider" />
+
+      {/* Grilla de publicaciones */}
+      <div className="profile-grid">
+        {posts.map(post => (
+          <button
+            key={post.id}
+            className="profile-grid-item"
+            onClick={() => onSelectPost(post)}
+          >
+            <img src={post.url} alt={post.caption} />
+            <div className="profile-grid-overlay">
+              <span>❤️ {post.likes.toLocaleString()}</span>
+              <span>💬 {post.comments.length}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+
+    </div>
+  );
+};
+
+export default Profile;
+</file>
+
 <file path="src/Components/Stories/Stories.css">
 .stories h1{
     color: yellow;
 }
+</file>
+
+<file path="src/hooks/usePost.ts">
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import type { CatPost } from '../types/index.ts';
+import { catUsernames, captions, mockComments } from '../objects/mockData.ts';
+
+const randomItem = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
+const randomBetween = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+export const usePosts = () => {
+  const [posts, setPosts] = useState<CatPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCats = async () => {
+      try {
+        const response = await axios.get('https://api.thecatapi.com/v1/images/search', {
+          params: { limit: 12, mime_types: 'jpg,png' },
+        });
+
+        const catPosts: CatPost[] = response.data.map(
+          (cat: { id: string; url: string }, index: number) => ({
+            id: cat.id,
+            url: cat.url,
+            username: randomItem(catUsernames),
+            caption: captions[index % captions.length],
+            likes: randomBetween(48, 3200),
+            liked: false,
+            saved: false,
+            date: new Date().toLocaleDateString('es-AR'),
+            comments: mockComments.slice(0, randomBetween(1, 3)),
+            tags: ['#gatos', '#cats', '#meow'],
+          })
+        );
+
+        setPosts(catPosts);
+      } catch (err) {
+        setError('No se pudieron cargar las publicaciones.');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCats();
+  }, []);
+
+  const toggleLike = (id: string) => {
+    setPosts(prev =>
+      prev.map(p => p.id === id ? { ...p, liked: !p.liked, likes: p.liked ? p.likes - 1 : p.likes + 1 } : p)
+    );
+  };
+
+  const toggleSave = (id: string) => {
+    setPosts(prev => prev.map(p => p.id === id ? { ...p, saved: !p.saved } : p));
+  };
+
+  return { posts, loading, error, toggleLike, toggleSave };
+};
 </file>
 
 <file path="src/main.tsx">
@@ -372,6 +1207,70 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+</file>
+
+<file path="src/objects/mockData.ts">
+import type { Comment } from '../types/index.ts';
+
+export const currentUser = {
+  username: 'michi.lover',
+  fullName: 'Michi Amante 🐾',
+  avatar: 'https://api.dicebear.com/8.x/avataaars/svg?seed=michi',
+  bio: 'Amante de los gatos 🐱 | Buenos Aires, AR',
+  followers: 1284,
+  following: 312,
+};
+
+export const catUsernames = [
+  'fluffly_meow', 'gatito.arg', 'purrfecto', 'whiskers99',
+  'michi_queen', 'el.felino', 'catzilla_ar', 'luna.gata',
+];
+
+export const captions = [
+  'Cuando el sol te da en la cara y no querés levantarte 😴',
+  'Modo lunes: activado 🐾',
+  '¿Me estás mirando a mí? 👀',
+  'Jefe de la casa, sin dudas 😼',
+  'Siesta obligatoria según la constitución gatuna 📜',
+];
+
+export const mockComments: Comment[] = [
+  { id: 'c1', username: 'gata.bonita', text: '¡Qué lindoooo! 😍', time: 'hace 2h' },
+  { id: 'c2', username: 'michifan_ar', text: 'Me muero de ternura 🐱', time: 'hace 1h' },
+  { id: 'c3', username: 'catlovers99', text: 'Ese gato me robó el corazón', time: 'hace 45min' },
+];
+
+export const storyUsers = [
+  { username: 'michi.lover', avatar: 'https://api.dicebear.com/8.x/avataaars/svg?seed=michi', isOwn: true },
+  { username: 'gatito.arg', avatar: 'https://api.dicebear.com/8.x/avataaars/svg?seed=gatito' },
+  { username: 'fluffly_meow', avatar: 'https://api.dicebear.com/8.x/avataaars/svg?seed=fluffly' },
+  { username: 'purrfecto', avatar: 'https://api.dicebear.com/8.x/avataaars/svg?seed=purr' },
+  { username: 'luna.gata', avatar: 'https://api.dicebear.com/8.x/avataaars/svg?seed=luna' },
+];
+</file>
+
+<file path="src/types/index.ts">
+export interface CatPost {
+  id: string;
+  url: string;
+  username: string;
+  caption: string;
+  likes: number;
+  liked: boolean;
+  saved: boolean;
+  date: string;
+  comments: Comment[];
+  tags: string[];
+}
+
+export interface Comment {
+  id: string;
+  username: string;
+  text: string;
+  time: string;
+}
+
+export type AppView = 'feed' | 'profile' | 'detail';
 </file>
 
 <file path="tsconfig.app.json">
@@ -465,40 +1364,6 @@ export default defineConfig({
 </html>
 </file>
 
-<file path="package.json">
-{
-  "name": "TP6",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "i": "^0.3.7",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
-  },
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@types/node": "^24.12.3",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^10.3.0",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.6.0",
-    "typescript": "~6.0.2",
-    "typescript-eslint": "^8.59.2",
-    "vite": "^8.0.12"
-  }
-}
-</file>
-
 <file path="README.md">
 # TP6-TS
 Clon de Instagram, en React + TypeScript. 
@@ -562,126 +1427,241 @@ nav img{
 }
 </file>
 
-<file path="src/Components/Stories/Stories.tsx">
-import './Stories.css'
-import Story from '../Story/Story.tsx'
-import type StoryInterface from '../../types/stories.ts'
-
-const Stories = ({storiesList}) => {
-    return(
-        <section className = "stories">
-            <h1>STORIES</h1>
-            {
-                storiesList.map((storyData : StoryInterface) => (
-                <Story {...storyData}/>
-                ))
-            }
-        </section>
-    )
-}
-
-export default Stories;
-</file>
-
 <file path="src/Components/Story/Story.css">
 .story h3{
     color: white;
 }
 </file>
 
+<file path="package.json">
+{
+  "name": "TP6",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.16.1",
+    "i": "^0.3.7",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12"
+  }
+}
+</file>
+
+<file path="src/Components/Stories/Stories.tsx">
+import './Stories.css';
+import Story from '../Story/Story.tsx';
+import { storyUsers } from '../../objects/mockData.ts';
+
+const Stories = () => {
+  return (
+    <section className="stories">
+      {storyUsers.map((user, i) => (
+        <Story
+          key={user.username}
+          username={user.username}
+          avatar={user.avatar}
+          isOwn={user.isOwn ?? false}
+          index={i}
+        />
+      ))}
+    </section>
+  );
+};
+
+export default Stories;
+</file>
+
 <file path="src/types/stories.ts">
 export default interface StoryInterface{
-    img: string;
+    avatar: string;
     username: string;
+    isOwn?: boolean;
+    index?: number;
 }
 </file>
 
 <file path="src/App.tsx">
-import Header from './Components/Header/Header.tsx'
-import Menu from './Components/Menu/Menu.tsx'
-import Feed from './Components/Feed/Feed.tsx'
-import './App.css'
+import { useState } from 'react';
+import Header from './Components/Header/Header.tsx';
+import Feed from './Components/Feed/Feed.tsx';
+import PostDetail from './Components/postDetail/postDetail.tsx';
+import Profile from './Components/Profile/Profile.tsx';
+import { usePosts } from './hooks/usePost.ts';
+import type { AppView, CatPost } from './types/index.ts';
+import './App.css';
 
 function App() {
+  const { posts, loading, error, toggleLike, toggleSave } = usePosts();
+  const [currentView, setCurrentView] = useState<AppView>('feed');
+  const [selectedPost, setSelectedPost] = useState<CatPost | null>(null);
+
+  const handleSelectPost = (post: CatPost) => {
+    setSelectedPost(post);
+    setCurrentView('detail');
+  };
+
   return (
     <>
-      <Header/>
-      <Menu/>
-      <Feed/>
+      <Header
+        currentView={currentView}
+        onGoFeed={() => { setSelectedPost(null); setCurrentView('feed'); }}
+        onGoProfile={() => setCurrentView('profile')}
+      />
+
+      {currentView === 'feed' && (
+        <Feed
+          posts={posts}
+          loading={loading}
+          error={error}
+          onSelectPost={handleSelectPost}
+          onToggleLike={toggleLike}
+          onToggleSave={toggleSave}
+        />
+      )}
+
+      {currentView === 'detail' && selectedPost && (
+        <PostDetail
+          post={selectedPost}
+          onGoBack={() => { setSelectedPost(null); setCurrentView('feed'); }}
+          onToggleLike={toggleLike}
+          onToggleSave={toggleSave}
+        />
+      )}
+
+      {currentView === 'profile' && (
+        <Profile posts={posts} onSelectPost={handleSelectPost} />
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
 </file>
 
 <file path="src/Components/Feed/Feed.tsx">
-import './Feed.css'
-import {useState} from 'react'
-import Stories from '../Stories/Stories.js'
-import listJson from '../../objects/storiesList.ts'
+import './Feed.css';
+import { useState } from 'react';
+import Stories from '../Stories/Stories.tsx';
+import Post from '../Post/Post.tsx';        
+import type { CatPost } from '../../types/index.ts';
 
-const Feed = () => {    
-    const[storiesList, setstoriesList] = useState(listJson)
-    return(
-        <section className = "feed">
-            <Stories storiesList = {storiesList}/>
-        </section>
-    )
+interface FeedProps {
+  posts: CatPost[];
+  loading: boolean;
+  error: string | null;
+  onSelectPost: (post: CatPost) => void;
+  onToggleLike: (id: string) => void;
+  onToggleSave: (id: string) => void;
 }
+
+const Feed = ({ posts, loading, error, onSelectPost, onToggleLike, onToggleSave }: FeedProps) => {
+  return (
+    <section className="feed">
+      <Stories />   /* ← ya no necesita props, usa mockData internamente */
+
+      {error && <p style={{ color: 'red', padding: '16px' }}>{error}</p>}
+      {loading && <p style={{ padding: '16px' }}>Cargando gatos... 🐱</p>}
+
+      {posts.map((post, i) => (
+        <Post
+          key={post.id}
+          post={post}
+          onSelectPost={onSelectPost}
+          onToggleLike={onToggleLike}
+          onToggleSave={onToggleSave}
+          index={i}
+        />
+      ))}
+    </section>
+  );
+};
 
 export default Feed;
 </file>
 
 <file path="src/Components/Header/Header.tsx">
-import './Header.css'
+import './Header.css';
+import type { AppView } from '../../types/index.ts';
 
-const Header = () => {
-    return(
-        <header>
-        <img src="src/assets/Logo/LogoInstagram.png" alt="jhsadjhsad" />
-        <form><img src="src/assets/Icons/SearchIcon.svg" alt="" /><input type="text" placeholder = "Username, hashtag and story search"/></form>
-        <nav>
-            <img src="src/assets/Icons/SettingsIcon.svg" alt="" />
-            <img src="src/assets/Icons/CameraIcon.svg" alt="" />
-            <img src="src/assets/Icons/DMIcon.svg" alt="" />   
-        </nav>
-        
-        <button></button>
-        </header>
-    )
+interface HeaderProps {
+  currentView: AppView;
+  onGoFeed: () => void;
+  onGoProfile: () => void;
 }
 
-export default Header
-</file>
+const Header = ({ currentView, onGoFeed, onGoProfile }: HeaderProps) => {
+  return (
+    <header>
+      {/* Tu logo existente */}
+      <img
+        src="src/assets/Logo/LogoInstagram.png"
+        alt="logo"
+        onClick={onGoFeed}
+        style={{ cursor: 'pointer' }}
+      />
 
-<file path="src/objects/storiesList.ts">
-import type StoryInterface from '../types/stories.ts'
+      {/* Tu búsqueda existente */}
+      <form>
+        <img src="src/assets/Icons/SearchIcon.svg" alt="" />
+        <input type="text" placeholder="Buscar" />
+      </form>
 
-const storiesList: StoryInterface[] = [
-    {img: "../assets/Profile-Pics/PFP-1.jpg", username: "elPibeLeji"},
-    {img: "../assets/Profile-Pics/PFP-2.jpg", username: "Pop"},
-    {img: "../assets/Profile-Pics/PFP-3.jpg", username: "Scheckman_12"},
-    {img: "../assets/Profile-Pics/PFP-4.jfif", username: "Agus_Aiello_ElPollon"},
-    {img: "../assets/Profile-Pics/PFP-5.jpeg", username: "FifTheMan"}
-]
+      <nav>
+        <img src="src/assets/Icons/SettingsIcon.svg" alt="" onClick={onGoProfile} style={{ cursor: 'pointer' }} />
+        <img src="src/assets/Icons/CameraIcon.svg" alt="" />
+        <img src="src/assets/Icons/DMIcon.svg" alt="" />
+      </nav>
+    </header>
+  );
+};
 
-export default storiesList
+export default Header;
 </file>
 
 <file path="src/Components/Story/Story.tsx">
-import './Story.css'
-import type StoryInterface from '../../types/stories.ts'
+import { useState } from 'react';
+import './Story.css';
 
-const Story = (storyData : StoryInterface) => {
-    console.log(storyData.img)
-    return(        
-        <div className = "story">
-            <img src={storyData.img} alt="lalala" />
-            <h3>{storyData.username}</h3>
-        </div>
-    )   
+interface StoryProps {
+  username: string;
+  avatar: string;
+  isOwn?: boolean;
+  index: number;
 }
+
+const Story = ({ username, avatar, isOwn = false, index }: StoryProps) => {
+  const [viewed, setViewed] = useState(false);
+
+  return (
+    <button className={`story ${viewed ? 'viewed' : ''}`} onClick={() => setViewed(true)}>
+      <div className="story-ring">
+        <img src={avatar} alt={username} />
+      </div>
+      <span>{username}</span>
+    </button>
+  );
+};
 
 export default Story;
 </file>

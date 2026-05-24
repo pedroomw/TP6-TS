@@ -1,51 +1,66 @@
-/* Contenedor principal */
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Deja espacio para cuando agregues la parte derecha */
-  padding: 10px 20px; /* El tono oscuro del fondo */
+  justify-content: space-between;
+  padding: 0 20px;
   height: 60px;
-  border-bottom: 1px solid #30363d; /* Línea sutil divisoria */
+  background-color: #100A2C;
+  border-bottom: 1px solid #2a1f5a;
 }
 
-/* Estilo del Logo */
 header img {
   height: 35px;
   width: auto;
   cursor: pointer;
 }
 
-/* Contenedor del buscador */
 header form {
-  flex-grow: 1; /* Permite que el form ocupe espacio, pero lo limitaremos */
+  flex-grow: 1;
   display: flex;
   justify-content: center;
 }
 
 header input {
-  background-color: #161b22; /* Color más oscuro para el input */
-  color: #c9d1d9;
-  border: 1px solid #30363d;
-  border-radius: 6px;
-  padding: 5px 12px 5px 35px; /* Padding izquierdo extra para el icono */
+  background-color: #1c1240;
+  color: #e9e9e9;
+  border: 1px solid #2a1f5a;
+  border-radius: 8px;
+  padding: 7px 16px;
   width: 100%;
-  max-width: 350px; /* Tamaño máximo similar al de la imagen */
+  max-width: 280px;
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s;
 }
 
 header input:focus {
-  border-color: #58a6ff; /* Resalte azul al hacer clic */
-  background-color: #0d1117;
+  border-color: #7c4dff;
 }
 
-/* Estilo del placeholder */
 header input::placeholder {
-  color: #8b949e;
+  color: #8b7db8;
   font-size: 14px;
 }
 
-nav img{
-    margin-left: 10px;
+nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+nav img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+nav img:hover {
+  opacity: 1;
 }

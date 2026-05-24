@@ -1,3 +1,15 @@
-.stories h1{
-    color: yellow;
+.stories {
+  display: flex;
+  gap: 16px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  background-color: #1c1240;
+  border: 1px solid #2a1f5a;
+  border-radius: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.stories::-webkit-scrollbar {
+  display: none;
 }
