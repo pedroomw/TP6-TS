@@ -1,5 +1,6 @@
 import './Header.css';
 import type { AppView } from '../../types/index.ts';
+import { currentUser } from '../../objects/mockData.ts';
 
 interface HeaderProps {
   currentView: AppView;
@@ -14,7 +15,7 @@ const Header = ({ currentView, onGoFeed, onGoProfile }: HeaderProps) => {
       <img
         src="src/assets/Logo/LogoInstagram.png"
         alt="logo"
-        onClick={onGoFeed}
+        onClick={onGoFeed}  
         style={{ cursor: 'pointer' }}
       />
 
@@ -25,7 +26,7 @@ const Header = ({ currentView, onGoFeed, onGoProfile }: HeaderProps) => {
       </form>
 
       <nav>
-        <img src="src/assets/Icons/SettingsIcon.svg" alt="" onClick={onGoProfile} style={{ cursor: 'pointer' }} />
+        <img src={currentUser.avatar} alt="" onClick={onGoProfile} style={{ cursor: 'pointer' }} />
         <img src="src/assets/Icons/CameraIcon.svg" alt="" />
         <img src="src/assets/Icons/DMIcon.svg" alt="" />
       </nav>

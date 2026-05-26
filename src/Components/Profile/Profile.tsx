@@ -50,7 +50,6 @@ const Profile = ({ posts, onSelectPost }: ProfileProps) => {
           </button>
         ))}
       </div>
-
     </div>
   );
 };

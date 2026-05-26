@@ -30,7 +30,7 @@ const handleGoBack = () => {
     requestAnimationFrame(() => {
       console.log('ejecutando scroll a:', scrollPosition);
       window.scrollTo({ top: scrollPosition });
-    });
+    }); 
   });
 };
 
@@ -42,7 +42,6 @@ return (
       onGoProfile={() => setCurrentView('profile')}
     />
 
-    {/* Feed siempre montado, solo se oculta */}
     <div style={{ display: currentView === 'feed' ? 'block' : 'none' }}>
       <Feed
         posts={posts}
@@ -54,14 +53,14 @@ return (
       />
     </div>
 
-    {currentView === 'detail' && selectedPost && (
+    {currentView === 'detail' && selectedPost ? (
       <PostDetail
         post={selectedPost}
         onGoBack={handleGoBack}
         onToggleLike={toggleLike}
         onToggleSave={toggleSave}
       />
-    )}
+    ) : null}
 
     {currentView === 'profile' && (
       <Profile posts={posts} onSelectPost={handleSelectPost} />
