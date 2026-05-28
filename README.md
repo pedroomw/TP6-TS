@@ -2,8 +2,9 @@
 
 Clon web de Instagram desarrollado con React + TypeScript, que consume imágenes de gatos desde The Cat API.
 
-**Diseño de Figma utilizado como referencia:**
+**Diseños de Figma utilizado como referencia:**
 https://www.figma.com/community/file/1004033523744290376
+https://dribbble.com/shots/15379093-Instagram-Redesign-Concept-Web-app
 
 ---
 

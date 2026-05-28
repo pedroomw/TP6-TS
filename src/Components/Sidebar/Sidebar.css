@@ -1,0 +1,16 @@
+.sidebar-container{
+position: fixed;
+  top: 60px;
+  left: 0;
+  width: 250px;
+  height: 93vh; 
+  background-color: #09051a;
+  padding-top: 20px;
+  z-index: 1000; 
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-container h1{
+    color: white;
+    font-size: 200%;  
+}

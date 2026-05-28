@@ -1,4 +1,4 @@
-.story {
+.add-story {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,26 +9,26 @@
   flex-shrink: 0;
 }
 
-.story-ring {
+.add-story-ring {
   padding: 2px;
   border-radius: 50%;
   background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
 }
 
-.story.viewed .story-ring {
+.add-story-ring {
   background: #2a1f5a;
 }
 
-.story-ring img {
+.add-story-ring img {
   width: 56px;
   height: 56px;
-  border-radius: 50%; 
+  border-radius: 50%;
   object-fit: cover;
   display: block;
   border: 2px solid #100A2C;
 }
 
-.story span {
+.add-story span {
   font-size: 11px;
   color: #e9e9e9;
   max-width: 64px;
