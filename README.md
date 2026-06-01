@@ -1,12 +1,12 @@
 # CatGram — Clon de Instagram con React
 
-Clon web de Instagram desarrollado con React + TypeScript, que consume imágenes de gatos desde The Cat API.
+Clon web de Instagram desarrollado con React + TypeScript, que consume imágenes de gatos desde The Cat API. XD
 
 **Diseño de Figma utilizado como referencia:**
 https://www.figma.com/community/file/1004033523744290376
 
 ---
-
+5
 ## ▶️ Cómo ejecutar el proyecto
 
 ```bash
