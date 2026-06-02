@@ -1,3 +1,4 @@
+import "./SideBarProfile.css"
 import type { User } from "../../types/index.ts"
 
 interface SideBarProfileProps {
@@ -7,12 +8,14 @@ interface SideBarProfileProps {
 
 const SideBarProfile = ({currentUser, onGoProfile} : SideBarProfileProps) => {
     return(
-        <>
-        <img src={currentUser.avatar} alt = {currentUser.username}/>
-        <h1 onClick={onGoProfile}>{currentUser.username}</h1>
-        <h3>{currentUser.followers}</h3>
-        <h3>{currentUser.following}</h3>
-        </>
+        <div className="sidebar-profile"> 
+            <img src={currentUser.avatar} alt = {currentUser.username}/>
+            <h1 onClick={onGoProfile}>{currentUser.username}</h1>
+            <div className="profile-stats">
+                <h3>{currentUser.followers}</h3>
+                <h3>{currentUser.following}</h3>
+            </div>
+        </div>
     )
 }
 

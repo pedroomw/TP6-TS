@@ -1,0 +1,16 @@
+.screen-container {
+  display: grid;
+  /* El sidebar mantiene un ancho fijo (ej. 320px) y el contenido toma el resto (1fr) */
+  grid-template-columns: 320px 1fr; 
+  min-height: calc(100vh - 70px); /* Restamos una altura estimada de tu <Header /> */
+  width: 100%;
+  background-color: #0a0b1e; /* El fondo oscuro general del diseño */
+}
+
+/* Contenedor de las vistas dinámicas (Feed, Detail, Profile) */
+.main-content {
+  padding: 40px;
+  background-color: #0a0b1e;
+  overflow-y: auto;
+  width: 100%;
+}

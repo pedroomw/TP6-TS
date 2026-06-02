@@ -1,3 +1,4 @@
+import './SideBar.css'
 import SideBarProfile from "../SideBarProfile/SideBarProfile.tsx"
 import type { User } from "../../types/index.ts"
 
@@ -15,7 +16,10 @@ const SideBar = ({currentUser, onGoProfile, onGoFeed} : SideBarProps) =>
     currentUser = {currentUser}
     onGoProfile = {onGoProfile}
     />
-    <button>Home</button>
+    <button onClick = {onGoFeed}>Home</button>
+    <button>Discover</button>
+    <button>Direct Messages</button>
+    <button>Settings</button>
     </section>
     )
 }

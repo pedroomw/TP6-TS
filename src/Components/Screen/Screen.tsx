@@ -1,3 +1,5 @@
+import './Screen.css'
+
 import SideBar from "../SideBar/SideBar.tsx"
 import Feed from "../Feed/Feed"
 import PostDetail from "../postDetail/postDetail.tsx"
@@ -22,7 +24,7 @@ interface ScreenProps{
 
 const Screen = ({currentView, posts, loading, error, onSelectPost, onToggleLike, onToggleSave, onGoBack, onGoProfile, onGoFeed, selectedPost} : ScreenProps) => {
     return (
-        <>
+        <section className = "screen-container">
             <SideBar
             currentUser = {currentUser}
             onGoProfile = {onGoProfile}
@@ -55,7 +57,7 @@ const Screen = ({currentView, posts, loading, error, onSelectPost, onToggleLike,
                 />
             ) : null}
             
-        </>
+        </section>
     )
 }
 

@@ -1,3 +1,66 @@
-.sidebar{
-    width: 50%;
+/* ==========================================================================
+   ESTILOS GENERALES DEL SIDEBAR
+   ========================================================================== */
+
+.sidebar {
+  background-color: #0f1026; /* Fondo azul oscuro del menú lateral */
+  padding: 33px 24px 30px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Espaciado uniforme entre botones */
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  height: calc(100vh - 70px);
+  position: sticky;
+  top: 70px;
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   ESTILOS DE LOS BOTONES DE NAVEGACIÓN
+   ========================================================================== */
+
+.sidebar button {
+  background: transparent;
+  border: none;
+  color: #8e8e93; /* Texto secundario/gris por defecto */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  padding: 14px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Espacio por si luego agregas iconos en el JSX */
+  position: relative; /* Para la barrita rosa lateral si quisieras usarla */
+  transition: all 0.25s ease-in-out;
+}
+
+/* Estado Hover (Cuando pasas el mouse por encima) */
+.sidebar button:hover {
+  color: #ffffff; /* El texto se ilumina en blanco */
+  background-color: rgba(255, 255, 255, 0.04); /* Un sutil reflejo de fondo */
+}
+
+/* Estado Activo / Seleccionado (Simulando el botón 'Home' de la imagen) */
+/* Nota: Si luego manejas una clase "active" en React, esto le dará el toque premium */
+.sidebar button.active, 
+.sidebar button:focus-visible {
+  color: #ffffff;
+  background: linear-gradient(90deg, rgba(255, 45, 85, 0.1) 0%, rgba(255, 45, 85, 0) 100%);
+  font-weight: 600;
+}
+
+/* La barrita rosa vertical del diseño original en el elemento activo */
+.sidebar button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 4px;
+  background-color: #ff2d55; /* Color rosa del botón New Post / Selección */
+  border-radius: 0 4px 4px 0;
 }
