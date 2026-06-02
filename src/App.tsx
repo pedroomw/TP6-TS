@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './Components/Header/Header.tsx';
-import Feed from './Components/Feed/Feed.tsx';
-import PostDetail from './Components/postDetail/postDetail.tsx';
-import Profile from './Components/Profile/Profile.tsx';
+import Screen from './Components/Screen/Screen.tsx'
 import { usePosts } from './hooks/usePost.ts';
 import type { AppView, CatPost } from './types/index.ts';
 import './App.css';
@@ -42,29 +40,18 @@ return (
       onGoProfile={() => setCurrentView('profile')}
     />
 
-    <div style={{ display: currentView === 'feed' ? 'block' : 'none' }}>
-      <Feed
-        posts={posts}
-        loading={loading}
-        error={error}
-        onSelectPost={handleSelectPost}
-        onToggleLike={toggleLike}
-        onToggleSave={toggleSave}
-      />
-    </div>
-
-    {currentView === 'detail' && selectedPost ? (
-      <PostDetail
-        post={selectedPost}
-        onGoBack={handleGoBack}
-        onToggleLike={toggleLike}
-        onToggleSave={toggleSave}
-      />
-    ) : null}
-
-    {currentView === 'profile' && (
-      <Profile posts={posts} onSelectPost={handleSelectPost} />
-    )}
+    <Screen 
+    currentView = {currentView}
+    posts = {posts}
+    loading = {loading}
+    error = {error}
+    onSelectPost = {handleSelectPost}
+    onToggleLike = {toggleLike}
+    onToggleSave = {toggleSave}
+    onGoBack = {handleGoBack}
+    onGoProfile = {() => setCurrentView('profile')}
+    onGoFeed = {() => setCurrentView('feed')}
+    selectedPost = {selectedPost}/>
   </>
 );
 }

@@ -17,7 +17,7 @@ interface ScreenProps{
     onGoBack : () => void;
     onGoProfile : () => void;
     onGoFeed : () => void;
-    selectedPost : CatPost;
+    selectedPost : CatPost | null;
 }
 
 const Screen = ({currentView, posts, loading, error, onSelectPost, onToggleLike, onToggleSave, onGoBack, onGoProfile, onGoFeed, selectedPost} : ScreenProps) => {
@@ -39,7 +39,7 @@ const Screen = ({currentView, posts, loading, error, onSelectPost, onToggleLike,
             ) : null
             }
 
-            {currentView==='detail' ? (
+            {currentView==='detail' && selectedPost ? (
                 <PostDetail
                 post = {selectedPost}
                 onGoBack = {onGoBack}
@@ -58,3 +58,5 @@ const Screen = ({currentView, posts, loading, error, onSelectPost, onToggleLike,
         </>
     )
 }
+
+export default Screen;
