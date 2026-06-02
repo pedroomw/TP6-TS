@@ -5,7 +5,7 @@
   align-items: center;
   text-align: center;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 /* Apuntamos directo a tu etiqueta img */
@@ -37,7 +37,7 @@
 .profile-stats {
   display: flex;
   width: 100%;
-  gap: 12px;
+  gap: 10px;
   justify-content: center;
 }
 
