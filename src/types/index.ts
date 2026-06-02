@@ -18,4 +18,13 @@ export interface Comment {
   time: string;
 }
 
+export interface User {
+  username: string;
+  fullName: string;
+  avatar: string;
+  bio: string;
+  followers: number;
+  following: number;
+}
+
 export type AppView = 'feed' | 'profile' | 'detail';
