@@ -63,14 +63,18 @@ src/Components/Feed/Feed.css
 src/Components/Feed/Feed.tsx
 src/Components/Header/Header.css
 src/Components/Header/Header.tsx
-src/Components/Menu/Menu.css
-src/Components/Menu/Menu.tsx
 src/Components/Post/Post.css
 src/Components/Post/Post.tsx
 src/Components/postDetail/postDetail.css
 src/Components/postDetail/postDetail.tsx
 src/Components/Profile/Profile.css
 src/Components/Profile/Profile.tsx
+src/Components/Screen/Screen.css
+src/Components/Screen/Screen.tsx
+src/Components/SideBar/SideBar.css
+src/Components/SideBar/SideBar.tsx
+src/Components/SideBarProfile/SideBarProfile.css
+src/Components/SideBarProfile/SideBarProfile.tsx
 src/Components/Stories/Stories.css
 src/Components/Stories/Stories.tsx
 src/Components/Story/Story.css
@@ -291,12 +295,6 @@ export default defineConfig([
 </svg>
 </file>
 
-<file path="src/App.css">
-*{
-    background-color: #100A2C;
-}
-</file>
-
 <file path="src/assets/Icons/CameraIcon.svg">
 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
 	<path d="M0 0h24v24H0z" fill="none" />
@@ -326,221 +324,6 @@ export default defineConfig([
 	<path d="M0 0h24v24H0z" fill="none" />
 	<path fill="#e9e9e9" d="m9.25 22l-.4-3.2q-.325-.125-.612-.3t-.563-.375L4.7 19.375l-2.75-4.75l2.575-1.95Q4.5 12.5 4.5 12.338v-.675q0-.163.025-.338L1.95 9.375l2.75-4.75l2.975 1.25q.275-.2.575-.375t.6-.3l.4-3.2h5.5l.4 3.2q.325.125.613.3t.562.375l2.975-1.25l2.75 4.75l-2.575 1.95q.025.175.025.338v.674q0 .163-.05.338l2.575 1.95l-2.75 4.75l-2.95-1.25q-.275.2-.575.375t-.6.3l-.4 3.2zm2.8-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5" />
 </svg>
-</file>
-
-<file path="src/Components/Feed/Feed.css">
-.feed{
-    width: 80%;
-    float: right;
-}
-
-.feed h1{
-    color: red
-}
-</file>
-
-<file path="src/Components/Menu/Menu.css">
-.menu{
-    width: 20%;
-    float: left;
-}
-
-.menu h1{
-    color: blueviolet
-}
-</file>
-
-<file path="src/Components/Menu/Menu.tsx">
-import './Menu.css'
-
-const Menu = () => {
-    return(
-        <section className = "menu">
-            <h1>hola</h1>
-        </section>
-    )
-}
-
-export default Menu;
-</file>
-
-<file path="src/Components/Post/Post.css">
-.post {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 24px;
-}
-
-/* Header */
-.post-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-}
-
-.post-user {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.post-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.post-username {
-  font-size: 14px;
-  font-weight: 600;
-  color: #f5f5f5;
-}
-
-.post-more {
-  background: none;
-  border: none;
-  color: #f5f5f5;
-  font-size: 18px;
-  cursor: pointer;
-  letter-spacing: 2px;
-}
-
-/* Imagen */
-.post-image-wrapper {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background: #262626;
-  cursor: zoom-in;
-}
-
-.post-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Acciones */
-.post-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px 4px;
-}
-
-.post-actions-left {
-  display: flex;
-  gap: 4px;
-}
-
-.action-btn {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 22px;
-  border-radius: 50%;
-  transition: transform 0.15s ease;
-}
-.action-btn:hover { transform: scale(1.15); }
-.action-btn.liked { animation: heartPop 0.3s ease; }
-
-@keyframes heartPop {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.4); }
-  100% { transform: scale(1); }
-}
-
-/* Body */
-.post-body {
-  padding: 0 16px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.post-likes {
-  font-size: 14px;
-  font-weight: 700;
-  color: #f5f5f5;
-}
-
-.post-caption {
-  font-size: 14px;
-  color: #f5f5f5;
-  line-height: 1.5;
-}
-
-.post-caption-user {
-  font-weight: 700;
-}
-
-.post-tags {
-  font-size: 13px;
-  color: #0095f6;
-}
-
-.post-comments-link {
-  background: none;
-  border: none;
-  font-size: 14px;
-  color: #737373;
-  cursor: pointer;
-  text-align: left;
-  padding: 0;
-}
-.post-comments-link:hover { color: #a8a8a8; }
-
-.post-date {
-  font-size: 11px;
-  color: #737373;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-}
-
-/* Agregar comentario */
-.post-add-comment {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  border-top: 1px solid #2a2a2a;
-}
-
-.comment-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.post-add-comment input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  font-size: 14px;
-  color: #f5f5f5;
-}
-.post-add-comment input::placeholder { color: #737373; }
-
-.comment-submit {
-  background: none;
-  border: none;
-  font-size: 14px;
-  font-weight: 700;
-  color: #0095f6;
-  cursor: pointer;
-}
-.comment-submit:hover { color: #1877f2; }
 </file>
 
 <file path="src/Components/Post/Post.tsx">
@@ -652,173 +435,6 @@ const Post = ({ post, onSelectPost, onToggleLike, onToggleSave }: PostProps) => 
 };
 
 export default Post;
-</file>
-
-<file path="src/Components/postDetail/postDetail.css">
-.detail-wrapper {
-  max-width: 935px;
-  margin: 80px auto 0;
-  padding: 24px 20px;
-}
-
-.detail-back {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  color: #8b949e;
-  margin-bottom: 16px;
-  display: block;
-}
-.detail-back:hover { color: #f5f5f5; }
-
-.detail-card {
-  display: flex;
-  border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #1a1a1a;
-  min-height: 600px;
-}
-
-.detail-image-side {
-  flex: 1;
-  background: #000;
-  display: flex;
-  align-items: center;
-}
-
-.detail-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  max-height: 80vh;
-}
-
-.detail-info-side {
-  width: 320px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid #2a2a2a;
-}
-
-.detail-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-}
-
-.detail-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.detail-avatar-sm {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.detail-username {
-  font-size: 14px;
-  font-weight: 700;
-  color: #f5f5f5;
-}
-
-.detail-divider {
-  border: none;
-  border-top: 1px solid #2a2a2a;
-  margin: 0;
-}
-
-.detail-caption {
-  display: flex;
-  gap: 10px;
-  padding: 16px;
-  font-size: 14px;
-  color: #f5f5f5;
-  line-height: 1.5;
-}
-
-.detail-comments {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.detail-comment {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  font-size: 14px;
-  color: #f5f5f5;
-}
-
-.comment-time {
-  font-size: 12px;
-  color: #737373;
-  margin-top: 4px;
-  display: block;
-}
-
-.detail-actions {
-  display: flex;
-  gap: 12px;
-  padding: 12px 16px;
-}
-
-.like-btn, .save-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  color: #f5f5f5;
-}
-
-.like-btn.liked { color: #e1306c; }
-.save-btn.saved { color: #0095f6; }
-
-.detail-date {
-  font-size: 11px;
-  color: #737373;
-  padding: 0 16px 12px;
-  text-transform: uppercase;
-}
-
-.detail-add-comment {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-}
-
-.detail-add-comment input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  font-size: 14px;
-  color: #f5f5f5;
-}
-
-.detail-add-comment input::placeholder { color: #737373; }
-
-.comment-submit {
-  font-size: 14px;
-  font-weight: 700;
-  color: #0095f6;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
 </file>
 
 <file path="src/Components/postDetail/postDetail.tsx">
@@ -940,201 +556,6 @@ const PostDetail = ({ post, onGoBack, onToggleLike, onToggleSave }: PostDetailPr
 export default PostDetail;
 </file>
 
-<file path="src/Components/Profile/Profile.css">
-.profile-wrapper {
-  max-width: 935px;
-  margin: 80px auto 0;
-  padding: 32px 20px;
-}
-
-.profile-header {
-  display: flex;
-  gap: 60px;
-  align-items: flex-start;
-  margin-bottom: 44px;
-  padding: 0 16px;
-}
-
-.profile-avatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  border: 2px solid #2a2a2a;
-}
-
-.profile-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.profile-top-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.profile-username {
-  font-size: 20px;
-  font-weight: 400;
-  color: #f5f5f5;
-}
-
-.profile-edit-btn {
-  padding: 7px 16px;
-  background: #262626;
-  border: 1px solid #363636;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #f5f5f5;
-  cursor: pointer;
-}
-.profile-edit-btn:hover { background: #363636; }
-
-.profile-stats {
-  display: flex;
-  gap: 32px;
-  font-size: 16px;
-  color: #f5f5f5;
-}
-
-.profile-fullname {
-  font-size: 14px;
-  font-weight: 700;
-  color: #f5f5f5;
-}
-
-.profile-bio {
-  font-size: 14px;
-  color: #f5f5f5;
-  line-height: 1.5;
-}
-
-.profile-divider {
-  border: none;
-  border-top: 1px solid #2a2a2a;
-  margin-bottom: 4px;
-}
-
-/* Grilla */
-.profile-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-}
-
-.profile-grid-item {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  background: #262626;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-.profile-grid-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.profile-grid-item:hover img {
-  transform: scale(1.05);
-}
-
-.profile-grid-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  color: white;
-  font-size: 16px;
-  font-weight: 700;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.profile-grid-item:hover .profile-grid-overlay {
-  opacity: 1;
-}
-</file>
-
-<file path="src/Components/Profile/Profile.tsx">
-import './Profile.css';
-import { currentUser } from '../../objects/mockData.ts';
-import type { CatPost } from '../../types/index.ts';
-
-interface ProfileProps {
-  posts: CatPost[];
-  onSelectPost: (post: CatPost) => void;
-}
-
-const Profile = ({ posts, onSelectPost }: ProfileProps) => {
-  return (
-    <div className="profile-wrapper">
-
-      {/* Header del perfil */}
-      <div className="profile-header">
-        <img src={currentUser.avatar} alt={currentUser.username} className="profile-avatar" />
-
-        <div className="profile-info">
-          <div className="profile-top-row">
-            <h2 className="profile-username">{currentUser.username}</h2>
-            <button className="profile-edit-btn">Editar perfil</button>
-          </div>
-
-          <div className="profile-stats">
-            <span><strong>{posts.length}</strong> publicaciones</span>
-            <span><strong>{currentUser.followers.toLocaleString('es-AR')}</strong> seguidores</span>
-            <span><strong>{currentUser.following}</strong> seguidos</span>
-          </div>
-
-          <p className="profile-fullname">{currentUser.fullName}</p>
-          <p className="profile-bio">{currentUser.bio}</p>
-        </div>
-      </div>
-
-      <hr className="profile-divider" />
-
-      {/* Grilla de publicaciones */}
-      <div className="profile-grid">
-        {posts.map(post => (
-          <button
-            key={post.id}
-            className="profile-grid-item"
-            onClick={() => onSelectPost(post)}
-          >
-            <img src={post.url} alt={post.caption} />
-            <div className="profile-grid-overlay">
-              <span>❤️ {post.likes.toLocaleString()}</span>
-              <span>💬 {post.comments.length}</span>
-            </div>
-          </button>
-        ))}
-      </div>
-
-    </div>
-  );
-};
-
-export default Profile;
-</file>
-
-<file path="src/Components/Stories/Stories.css">
-.stories h1{
-    color: yellow;
-}
-</file>
-
 <file path="src/hooks/usePost.ts">
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -1249,30 +670,6 @@ export const storyUsers = [
 ];
 </file>
 
-<file path="src/types/index.ts">
-export interface CatPost {
-  id: string;
-  url: string;
-  username: string;
-  caption: string;
-  likes: number;
-  liked: boolean;
-  saved: boolean;
-  date: string;
-  comments: Comment[];
-  tags: string[];
-}
-
-export interface Comment {
-  id: string;
-  username: string;
-  text: string;
-  time: string;
-}
-
-export type AppView = 'feed' | 'profile' | 'detail';
-</file>
-
 <file path="tsconfig.app.json">
 {
   "compilerOptions": {
@@ -1364,73 +761,717 @@ export default defineConfig({
 </html>
 </file>
 
-<file path="README.md">
-# TP6-TS
-Clon de Instagram, en React + TypeScript. 
+<file path="src/App.css">
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-Inspirado en el diseño https://www.figma.com/community/file/1004033523744290376
-
-Objetivo: Perfil y publicación en detalle funcionales.
+body {
+  background-color: #100A2C;
+  color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
 </file>
 
-<file path="src/Components/Header/Header.css">
-/* Contenedor principal */
-header {
+<file path="src/Components/Post/Post.css">
+.post {
+  background: #1c1240;
+  border: 1px solid #2a1f5a;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.post-header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Deja espacio para cuando agregues la parte derecha */
-  padding: 10px 20px; /* El tono oscuro del fondo */
-  height: 60px;
-  border-bottom: 1px solid #30363d; /* Línea sutil divisoria */
+  justify-content: space-between;
+  padding: 12px 16px;
 }
 
-/* Estilo del Logo */
-header img {
-  height: 35px;
-  width: auto;
+.post-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #2a1f5a;
+}
+
+.post-username {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f5f5f5;
+}
+
+.post-more {
+  background: none;
+  border: none;
+  color: #8b7db8;
+  font-size: 18px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+.post-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #0d0820;
+  cursor: zoom-in;
+}
+
+.post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px 4px;
+}
+
+.post-actions-left {
+  display: flex;
+  gap: 4px;
+}
+
+.action-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  border-radius: 50%;
+  transition: transform 0.15s ease;
+}
+.action-btn:hover { transform: scale(1.15); }
+
+@keyframes heartPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+.action-btn.liked { animation: heartPop 0.3s ease; }
+
+.post-body {
+  padding: 4px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.post-likes {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+.post-caption {
+  font-size: 14px;
+  color: #e9e9e9;
+  line-height: 1.5;
+}
+
+.post-caption-user {
+  font-weight: 700;
+}
+
+.post-tags {
+  font-size: 13px;
+  color: #a78bfa;
+}
+
+.post-comments-link {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #8b7db8;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+.post-comments-link:hover { color: #c4b5fd; }
+
+.post-date {
+  font-size: 11px;
+  color: #6b5fa0;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.post-add-comment {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-top: 1px solid #2a1f5a;
+}
+
+.comment-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.post-add-comment input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #f5f5f5;
+}
+.post-add-comment input::placeholder { color: #6b5fa0; }
+
+.comment-submit {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: #a78bfa;
   cursor: pointer;
 }
+.comment-submit:hover { color: #c4b5fd; }
+</file>
 
-/* Contenedor del buscador */
-header form {
-  flex-grow: 1; /* Permite que el form ocupe espacio, pero lo limitaremos */
+<file path="src/Components/postDetail/postDetail.css">
+.detail-wrapper {
+  max-width: 935px;
+  margin: 80px auto 0;
+  padding: 24px 20px;
+}
+
+.detail-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #8b7db8;
+  margin-bottom: 16px;
+  display: block;
+}
+.detail-back:hover { color: #f5f5f5; }
+
+.detail-card {
   display: flex;
-  justify-content: center;
+  border: 1px solid #2a1f5a;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1c1240;
+  min-height: 600px;
 }
 
-header input {
-  background-color: #161b22; /* Color más oscuro para el input */
-  color: #c9d1d9;
-  border: 1px solid #30363d;
-  border-radius: 6px;
-  padding: 5px 12px 5px 35px; /* Padding izquierdo extra para el icono */
+.detail-image-side {
+  flex: 1;
+  background: #0d0820;
+  display: flex;
+  align-items: center;
+}
+
+.detail-image {
   width: 100%;
-  max-width: 350px; /* Tamaño máximo similar al de la imagen */
+  height: 100%;
+  object-fit: contain;
+  max-height: 80vh;
+}
+
+.detail-info-side {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #2a1f5a;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.detail-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.detail-avatar-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.detail-username {
   font-size: 14px;
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+.detail-divider {
+  border: none;
+  border-top: 1px solid #2a1f5a;
+  margin: 0;
+}
+
+.detail-caption {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  font-size: 14px;
+  color: #e9e9e9;
+  line-height: 1.5;
+}
+
+.detail-comments {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-comment {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: #e9e9e9;
+}
+
+.comment-time {
+  font-size: 12px;
+  color: #6b5fa0;
+  margin-top: 4px;
+  display: block;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.like-btn, .save-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #f5f5f5;
+}
+.like-btn.liked { color: #e1306c; }
+.save-btn.saved { color: #a78bfa; }
+
+.detail-date {
+  font-size: 11px;
+  color: #6b5fa0;
+  padding: 0 16px 12px;
+  text-transform: uppercase;
+}
+
+.detail-add-comment {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+}
+
+.detail-add-comment input {
+  flex: 1;
+  background: none;
+  border: none;
   outline: none;
-  transition: border-color 0.2s;
-}
-
-header input:focus {
-  border-color: #58a6ff; /* Resalte azul al hacer clic */
-  background-color: #0d1117;
-}
-
-/* Estilo del placeholder */
-header input::placeholder {
-  color: #8b949e;
   font-size: 14px;
+  color: #f5f5f5;
+}
+.detail-add-comment input::placeholder { color: #6b5fa0; }
+
+.comment-submit {
+  font-size: 14px;
+  font-weight: 700;
+  color: #a78bfa;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.comment-submit:hover { color: #c4b5fd; }
+</file>
+
+<file path="src/Components/Profile/Profile.css">
+.profile-wrapper {
+  max-width: 935px;
+  margin: 80px auto 0;
+  padding: 32px 20px;
 }
 
-nav img{
-    margin-left: 10px;
+.profile-header {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  margin-bottom: 44px;
+  padding: 0 16px;
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 3px solid #2a1f5a;
+}
+
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-top-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-username {
+  font-size: 20px;
+  font-weight: 400;
+  color: #f5f5f5;
+}
+
+.profile-edit-btn {
+  padding: 7px 16px;
+  background: #1c1240;
+  border: 1px solid #2a1f5a;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f5f5f5;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.profile-edit-btn:hover { background: #2a1f5a; }
+
+.profile-stats {
+  display: flex;
+  gap: 32px;
+  font-size: 16px;
+  color: #f5f5f5;
+}
+
+.profile-fullname {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+.profile-bio {
+  font-size: 14px;
+  color: #c4b5fd;
+  line-height: 1.5;
+}
+
+.profile-divider {
+  border: none;
+  border-top: 1px solid #2a1f5a;
+  margin-bottom: 4px;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+
+.profile-grid-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #1c1240;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.profile-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.profile-grid-item:hover img {
+  transform: scale(1.05);
+}
+
+.profile-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 10, 44, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.profile-grid-item:hover .profile-grid-overlay {
+  opacity: 1;
 }
 </file>
 
-<file path="src/Components/Story/Story.css">
-.story h3{
-    color: white;
+<file path="src/Components/Profile/Profile.tsx">
+import './Profile.css';
+import { currentUser } from '../../objects/mockData.ts';
+import type { CatPost } from '../../types/index.ts';
+
+interface ProfileProps {
+  posts: CatPost[];
+  onSelectPost: (post: CatPost) => void;
 }
+
+const Profile = ({ posts, onSelectPost }: ProfileProps) => {
+  return (
+    <div className="profile-wrapper">
+
+      {/* Header del perfil */}
+      <div className="profile-header">
+        <img src={currentUser.avatar} alt={currentUser.username} className="profile-avatar" />
+
+        <div className="profile-info">
+          <div className="profile-top-row">
+            <h2 className="profile-username">{currentUser.username}</h2>
+            <button className="profile-edit-btn">Editar perfil</button>
+          </div>
+
+          <div className="profile-stats">
+            <span><strong>{posts.length}</strong> publicaciones</span>
+            <span><strong>{currentUser.followers.toLocaleString('es-AR')}</strong> seguidores</span>
+            <span><strong>{currentUser.following}</strong> seguidos</span>
+          </div>
+
+          <p className="profile-fullname">{currentUser.fullName}</p>
+          <p className="profile-bio">{currentUser.bio}</p>
+        </div>
+      </div>
+
+      <hr className="profile-divider" />
+
+      {/* Grilla de publicaciones */}
+      <div className="profile-grid">
+        {posts.map(post => (
+          <button
+            key={post.id}
+            className="profile-grid-item"
+            onClick={() => onSelectPost(post)}
+          >
+            <img src={post.url} alt={post.caption} />
+            <div className="profile-grid-overlay">
+              <span>❤️ {post.likes.toLocaleString()}</span>
+              <span>💬 {post.comments.length}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Profile;
+</file>
+
+<file path="src/Components/Screen/Screen.css">
+.screen-container {
+  display: grid;
+  /* El sidebar mantiene un ancho fijo (ej. 320px) y el contenido toma el resto (1fr) */
+  grid-template-columns: 320px 1fr; 
+  min-height: calc(100vh - 70px); /* Restamos una altura estimada de tu <Header /> */
+  width: 100%;
+  background-color: #0a0b1e; /* El fondo oscuro general del diseño */
+}
+
+/* Contenedor de las vistas dinámicas (Feed, Detail, Profile) */
+.main-content {
+  padding: 40px;
+  background-color: #0a0b1e;
+  overflow-y: auto;
+  width: 100%;
+}
+</file>
+
+<file path="src/Components/SideBar/SideBar.css">
+/* ==========================================================================
+   ESTILOS GENERALES DEL SIDEBAR
+   ========================================================================== */
+
+.sidebar {
+  background-color: #0f1026; /* Fondo azul oscuro del menú lateral */
+  padding: 33px 24px 30px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Espaciado uniforme entre botones */
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  height: calc(100vh - 70px);
+  position: sticky;
+  top: 70px;
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   ESTILOS DE LOS BOTONES DE NAVEGACIÓN
+   ========================================================================== */
+
+.sidebar button {
+  background: transparent;
+  border: none;
+  color: #8e8e93; /* Texto secundario/gris por defecto */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  padding: 14px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Espacio por si luego agregas iconos en el JSX */
+  position: relative; /* Para la barrita rosa lateral si quisieras usarla */
+  transition: all 0.25s ease-in-out;
+}
+
+/* Estado Hover (Cuando pasas el mouse por encima) */
+.sidebar button:hover {
+  color: #ffffff; /* El texto se ilumina en blanco */
+  background-color: rgba(255, 255, 255, 0.04); /* Un sutil reflejo de fondo */
+}
+
+/* Estado Activo / Seleccionado (Simulando el botón 'Home' de la imagen) */
+/* Nota: Si luego manejas una clase "active" en React, esto le dará el toque premium */
+.sidebar button.active, 
+.sidebar button:focus-visible {
+  color: #ffffff;
+  background: linear-gradient(90deg, rgba(255, 45, 85, 0.1) 0%, rgba(255, 45, 85, 0) 100%);
+  font-weight: 600;
+}
+
+/* La barrita rosa vertical del diseño original en el elemento activo */
+.sidebar button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 4px;
+  background-color: #ff2d55; /* Color rosa del botón New Post / Selección */
+  border-radius: 0 4px 4px 0;
+}
+</file>
+
+<file path="src/Components/SideBar/SideBar.tsx">
+import './SideBar.css'
+import SideBarProfile from "../SideBarProfile/SideBarProfile.tsx"
+import type { User } from "../../types/index.ts"
+
+interface SideBarProps {
+    currentUser : User;
+    onGoProfile : () => void;
+    onGoFeed : () => void;
+}
+
+const SideBar = ({currentUser, onGoProfile, onGoFeed} : SideBarProps) =>
+{
+    return(
+    <section className="sidebar">
+    <SideBarProfile
+    currentUser = {currentUser}
+    onGoProfile = {onGoProfile}
+    />
+    <button onClick = {onGoFeed}>Home</button>
+    <button>Discover</button>
+    <button>Direct Messages</button>
+    <button>Settings</button>
+    </section>
+    )
+}
+
+export default SideBar
+</file>
+
+<file path="src/Components/Stories/Stories.css">
+.stories {
+  display: flex;
+  gap: 16px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  background-color: #1c1240;
+  border: 1px solid #2a1f5a;
+  border-radius: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.stories::-webkit-scrollbar {
+  display: none;
+}
+</file>
+
+<file path="src/types/index.ts">
+export interface CatPost {
+  id: string;
+  url: string;
+  username: string;
+  caption: string;
+  likes: number;
+  liked: boolean;
+  saved: boolean;
+  date: string;
+  comments: Comment[];
+  tags: string[];
+}
+
+export interface Comment {
+  id: string;
+  username: string;
+  text: string;
+  time: string;
+}
+
+export interface User {
+  username: string;
+  fullName: string;
+  avatar: string;
+  bio: string;
+  followers: number;
+  following: number;
+}
+
+export type AppView = 'feed' | 'profile' | 'detail';
 </file>
 
 <file path="package.json">
@@ -1468,6 +1509,157 @@ nav img{
 }
 </file>
 
+<file path="src/Components/Header/Header.css">
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 60px;
+  background-color: #100A2C;
+  border-bottom: 1px solid #2a1f5a;
+}
+
+header img {
+  height: 35px;
+  width: auto;
+  cursor: pointer;
+}
+
+header form {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+header input {
+  background-color: #1c1240;
+  color: #e9e9e9;
+  border: 1px solid #2a1f5a;
+  border-radius: 8px;
+  padding: 7px 16px;
+  width: 100%;
+  max-width: 280px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+header input:focus {
+  border-color: #7c4dff;
+}
+
+header input::placeholder {
+  color: #8b7db8;
+  font-size: 14px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+nav img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+nav img:hover {
+  opacity: 1;
+}
+</file>
+
+<file path="src/Components/SideBarProfile/SideBarProfile.css">
+/* Contenedor principal */
+.sidebar-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Apuntamos directo a tu etiqueta img */
+.sidebar-profile img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+  /* El anillo rosa/degradado de Instagram directo como borde */
+  border: 4px solid #0f1026; 
+  box-shadow: 0 0 0 3px #ff2d55; /* Simula el anillo exterior del diseño sin wrappers */
+}
+
+/* Apuntamos directo a tu h1 */
+.sidebar-profile h1 {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.sidebar-profile h1:hover {
+  color: #ff2d55;
+}
+
+/* El contenedor que agregamos para los h3 */
+.profile-stats {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Apuntamos directo a tus h3 (las cajitas de números) */
+.profile-stats h3 {
+  flex: 1;
+  background-color: #151631; /* Fondo grisáceo del figma */
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin: 0; /* Reseteamos márgenes por defecto del h3 */
+}
+</file>
+
+<file path="src/Components/SideBarProfile/SideBarProfile.tsx">
+import "./SideBarProfile.css"
+import type { User } from "../../types/index.ts"
+
+interface SideBarProfileProps {
+    currentUser : User;
+    onGoProfile : () => void;
+}
+
+const SideBarProfile = ({currentUser, onGoProfile} : SideBarProfileProps) => {
+    return(
+        <div className="sidebar-profile"> 
+            <img src={currentUser.avatar} alt = {currentUser.username}/>
+            <h1 onClick={onGoProfile}>{currentUser.username}</h1>
+            <div className="profile-stats">
+                <h3>Followers: {currentUser.followers}</h3>
+                <h3>Following: {currentUser.following}</h3>
+            </div>
+        </div>
+    )
+}
+
+export default SideBarProfile;
+</file>
+
 <file path="src/Components/Stories/Stories.tsx">
 import './Stories.css';
 import Story from '../Story/Story.tsx';
@@ -1492,6 +1684,47 @@ const Stories = () => {
 export default Stories;
 </file>
 
+<file path="src/Components/Story/Story.css">
+.story {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.story-ring {
+  padding: 2px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.story.viewed .story-ring {
+  background: #2a1f5a;
+}
+
+.story-ring img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2px solid #100A2C;
+}
+
+.story span {
+  font-size: 11px;
+  color: #e9e9e9;
+  max-width: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</file>
+
 <file path="src/types/stories.ts">
 export default interface StoryInterface{
     avatar: string;
@@ -1501,62 +1734,207 @@ export default interface StoryInterface{
 }
 </file>
 
-<file path="src/App.tsx">
-import { useState } from 'react';
-import Header from './Components/Header/Header.tsx';
-import Feed from './Components/Feed/Feed.tsx';
-import PostDetail from './Components/postDetail/postDetail.tsx';
-import Profile from './Components/Profile/Profile.tsx';
-import { usePosts } from './hooks/usePost.ts';
-import type { AppView, CatPost } from './types/index.ts';
-import './App.css';
+<file path="src/Components/Feed/Feed.css">
+.feed {
+  max-width: 470px;
+  margin: 80px auto 0;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+</file>
 
-function App() {
-  const { posts, loading, error, toggleLike, toggleSave } = usePosts();
-  const [currentView, setCurrentView] = useState<AppView>('feed');
-  const [selectedPost, setSelectedPost] = useState<CatPost | null>(null);
+<file path="src/Components/Screen/Screen.tsx">
+import './Screen.css'
 
-  const handleSelectPost = (post: CatPost) => {
-    setSelectedPost(post);
-    setCurrentView('detail');
-  };
+import SideBar from "../SideBar/SideBar.tsx"
+import Feed from "../Feed/Feed"
+import PostDetail from "../postDetail/postDetail.tsx"
+import Profile from "../Profile/Profile.tsx"
+import type { AppView } from "../../types/index.ts"
+import type { CatPost } from "../../types/index.ts"
+import { currentUser } from "../../objects/mockData.ts"
 
-  return (
-    <>
-      <Header
-        currentView={currentView}
-        onGoFeed={() => { setSelectedPost(null); setCurrentView('feed'); }}
-        onGoProfile={() => setCurrentView('profile')}
-      />
-
-      {currentView === 'feed' && (
-        <Feed
-          posts={posts}
-          loading={loading}
-          error={error}
-          onSelectPost={handleSelectPost}
-          onToggleLike={toggleLike}
-          onToggleSave={toggleSave}
-        />
-      )}
-
-      {currentView === 'detail' && selectedPost && (
-        <PostDetail
-          post={selectedPost}
-          onGoBack={() => { setSelectedPost(null); setCurrentView('feed'); }}
-          onToggleLike={toggleLike}
-          onToggleSave={toggleSave}
-        />
-      )}
-
-      {currentView === 'profile' && (
-        <Profile posts={posts} onSelectPost={handleSelectPost} />
-      )}
-    </>
-  );
+interface ScreenProps{
+    currentView : AppView;
+    posts : CatPost[];
+    loading : boolean;
+    error : string | null;
+    onSelectPost : (post : CatPost) => void;
+    onToggleLike : (id : string) => void;
+    onToggleSave : (id : string) => void;
+    onGoBack : () => void;
+    onGoProfile : () => void;
+    onGoFeed : () => void;
+    selectedPost : CatPost | null;
 }
 
-export default App;
+const Screen = ({currentView, posts, loading, error, onSelectPost, onToggleLike, onToggleSave, onGoBack, onGoProfile, onGoFeed, selectedPost} : ScreenProps) => {
+    return (
+        <section className = "screen-container">
+            <SideBar
+            currentUser = {currentUser}
+            onGoProfile = {onGoProfile}
+            onGoFeed = {onGoFeed}
+            />
+            {currentView==='feed' ? (
+            <Feed 
+            posts = {posts}
+            loading = {loading}
+            error = {error}
+            onSelectPost = {onSelectPost}
+            onToggleLike={onToggleLike}
+            onToggleSave={onToggleSave}/>
+            ) : null
+            }
+
+            {currentView==='detail' && selectedPost ? (
+                <PostDetail
+                post = {selectedPost}
+                onGoBack = {onGoBack}
+                onToggleLike = {onToggleLike}
+                onToggleSave = {onToggleSave}
+                />
+            ) : null}
+
+            {currentView==='profile' ? (
+                <Profile
+                posts = {posts}
+                onSelectPost = {onSelectPost}
+                />
+            ) : null}
+            
+        </section>
+    )
+}
+
+export default Screen;
+</file>
+
+<file path="README.md">
+# CatGram — Clon de Instagram con React
+
+Clon web de Instagram desarrollado con React + TypeScript, que consume imágenes de gatos desde The Cat API. 
+
+**Diseño de Figma utilizado como referencia:**
+https://www.figma.com/community/file/1004033523744290376
+
+---
+5
+## ▶️ Cómo ejecutar el proyecto
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+## 📁 Organización del proyecto
+
+```
+src/
+├── Components/
+│   ├── Header/       → Barra de navegación fija superior
+│   ├── Feed/         → Contenedor principal del feed
+│   ├── Post/         → Tarjeta individual de publicación
+│   ├── postDetail/   → Vista detallada de una publicación seleccionada
+│   ├── Stories/      → Contenedor horizontal de historias
+│   ├── Story/        → Historia individual
+│   └── Profile/      → Perfil del usuario emulado
+├── hooks/
+│   └── usePost.ts    → Hook que consume The Cat API con Axios
+├── objects/
+│   └── mockData.ts   → Datos simulados: usuario, captions, comentarios
+└── types/
+    └── index.ts      → Interfaces TypeScript (CatPost, Comment, AppView)
+```
+
+---
+
+## 🧩 Componentes y responsabilidades
+
+- **Header**: barra fija con logo, buscador y botones de navegación entre vistas
+- **Feed**: renderiza la lista de posts y las stories. Recibe los datos como props desde App
+- **Post**: tarjeta de cada publicación con like, guardar, comentar y doble click para likear
+- **postDetail**: vista dedicada con imagen ampliada, comentarios, likes y campo de comentario
+- **Stories**: scroll horizontal de historias usando los datos de mockData
+- **Story**: historia individual con estado `viewed` para marcar si fue vista
+- **Profile**: perfil del usuario emulado con estadísticas y grilla 3x3 de publicaciones
+
+---
+
+## 🔗 Comunicación entre componentes mediante props
+
+```
+App
+ ├── Header (currentView, onGoFeed, onGoProfile)
+ ├── Feed   (posts, loading, error, onSelectPost, onToggleLike, onToggleSave)
+ │    ├── Stories
+ │    └── Post × N (post, onSelectPost, onToggleLike, onToggleSave, index)
+ ├── postDetail (post, onGoBack, onToggleLike, onToggleSave)
+ └── Profile    (posts, onSelectPost)
+```
+
+---
+
+## 🪝 Hooks utilizados
+
+| Hook | Dónde | Para qué |
+|------|-------|----------|
+| `useEffect` | `usePost.ts` | Llama a The Cat API al montar la app |
+| `useState` | `usePost.ts` | Guarda posts, loading y error |
+| `useState` | `usePost.ts` | Maneja toggleLike y toggleSave |
+| `useState` | `App.tsx` | Guarda la vista actual (feed / profile / detail) |
+| `useState` | `App.tsx` | Guarda el post seleccionado |
+| `useState` | `App.tsx` | Guarda la posición del scroll al abrir un post |
+| `useState` | `Post.tsx` | Controla el texto del campo de comentario |
+| `useState` | `Story.tsx` | Marca si la story fue vista |
+
+---
+
+## 🌐 Consumo de API
+
+Se utiliza **Axios** dentro del hook `usePost.ts` para consumir [The Cat API](https://thecatapi.com/):
+
+```ts
+const response = await axios.get('https://api.thecatapi.com/v1/images/search', {
+  params: { limit: 12, mime_types: 'jpg,png' },
+});
+```
+
+Cada imagen se enriquece con datos simulados (username, caption, likes, comentarios, fecha) para simular publicaciones reales de una red social.
+
+---
+
+## 🖼️ Visualización individual de publicaciones
+
+Se resolvió mediante un **componente dedicado (`postDetail`)** que reemplaza la vista del feed.
+
+El flujo es:
+1. El usuario clickea una imagen en el feed
+2. `App.tsx` guarda el scroll actual, actualiza `selectedPost` y cambia la vista a `detail`
+3. Se renderiza `postDetail` con el post como prop
+4. El botón "Volver al feed" restaura la vista y el scroll a la posición original
+
+---
+
+## 👤 Perfil de usuario emulado
+
+El usuario está definido en `mockData.ts`:
+
+```ts
+export const currentUser = {
+  username: 'michi.lover',
+  fullName: 'Michi Amante 🐾',
+  bio: 'Amante de los gatos 🐱 | Buenos Aires, AR',
+  followers: 1284,
+  following: 312,
+};
+```
+
+No hay sistema de login. El perfil muestra las mismas publicaciones cargadas desde la API en una grilla 3x3, con estadísticas y bio fijos en el código.
 </file>
 
 <file path="src/Components/Feed/Feed.tsx">
@@ -1578,8 +1956,7 @@ interface FeedProps {
 const Feed = ({ posts, loading, error, onSelectPost, onToggleLike, onToggleSave }: FeedProps) => {
   return (
     <section className="feed">
-      <Stories />   /* ← ya no necesita props, usa mockData internamente */
-
+      <Stories />   
       {error && <p style={{ color: 'red', padding: '16px' }}>{error}</p>}
       {loading && <p style={{ padding: '16px' }}>Cargando gatos... 🐱</p>}
 
@@ -1603,6 +1980,7 @@ export default Feed;
 <file path="src/Components/Header/Header.tsx">
 import './Header.css';
 import type { AppView } from '../../types/index.ts';
+import { currentUser } from '../../objects/mockData.ts';
 
 interface HeaderProps {
   currentView: AppView;
@@ -1617,7 +1995,7 @@ const Header = ({ currentView, onGoFeed, onGoProfile }: HeaderProps) => {
       <img
         src="src/assets/Logo/LogoInstagram.png"
         alt="logo"
-        onClick={onGoFeed}
+        onClick={onGoFeed}  
         style={{ cursor: 'pointer' }}
       />
 
@@ -1628,7 +2006,7 @@ const Header = ({ currentView, onGoFeed, onGoProfile }: HeaderProps) => {
       </form>
 
       <nav>
-        <img src="src/assets/Icons/SettingsIcon.svg" alt="" onClick={onGoProfile} style={{ cursor: 'pointer' }} />
+        <img src={currentUser.avatar} alt="" onClick={onGoProfile} style={{ cursor: 'pointer' }} />
         <img src="src/assets/Icons/CameraIcon.svg" alt="" />
         <img src="src/assets/Icons/DMIcon.svg" alt="" />
       </nav>
@@ -1664,6 +2042,68 @@ const Story = ({ username, avatar, isOwn = false, index }: StoryProps) => {
 };
 
 export default Story;
+</file>
+
+<file path="src/App.tsx">
+import { useState, useEffect } from 'react';
+import Header from './Components/Header/Header.tsx';
+import Screen from './Components/Screen/Screen.tsx'
+import { usePosts } from './hooks/usePost.ts';
+import type { AppView, CatPost } from './types/index.ts';
+import './App.css';
+
+function App() {
+  const { posts, loading, error, toggleLike, toggleSave } = usePosts();
+  const [currentView, setCurrentView] = useState<AppView>('feed');
+  const [selectedPost, setSelectedPost] = useState<CatPost | null>(null);
+
+ const [scrollPosition, setScrollPosition] = useState(0);
+
+const handleSelectPost = (post: CatPost) => {
+  console.log('scroll guardado:', window.scrollY);
+  setScrollPosition(window.scrollY);
+  setSelectedPost(post);
+  setCurrentView('detail');
+  window.scrollTo({ top: 0 });
+};
+
+const handleGoBack = () => {
+  console.log('scroll a restaurar:', scrollPosition);
+  setSelectedPost(null);
+  setCurrentView('feed');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      console.log('ejecutando scroll a:', scrollPosition);
+      window.scrollTo({ top: scrollPosition });
+    }); 
+  });
+};
+
+return (
+  <>
+    <Header
+      currentView={currentView}
+      onGoFeed={() => { setSelectedPost(null); setCurrentView('feed'); window.scrollTo({ top: 0 }); }}
+      onGoProfile={() => setCurrentView('profile')}
+    />
+
+    <Screen 
+    currentView = {currentView}
+    posts = {posts}
+    loading = {loading}
+    error = {error}
+    onSelectPost = {handleSelectPost}
+    onToggleLike = {toggleLike}
+    onToggleSave = {toggleSave}
+    onGoBack = {handleGoBack}
+    onGoProfile = {() => setCurrentView('profile')}
+    onGoFeed = {() => setCurrentView('feed')}
+    selectedPost = {selectedPost}/>
+  </>
+);
+}
+
+export default App;
 </file>
 
 </files>
