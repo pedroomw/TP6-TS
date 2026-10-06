@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Header from './Components/Header/Header.tsx';
 import Screen from './Components/Screen/Screen.tsx'
 import './App.css';

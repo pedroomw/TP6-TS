@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import './postDetail.css';
 import type { CatPost } from '../../types/index.ts';
-import { currentUser } from '../../objects/mockData.ts';
+import { useApp } from '../../hooks/useApp.ts';
 
 interface PostDetailProps {
   post: CatPost;
-  onGoBack: () => void;
-  onToggleLike: (id: string) => void;
-  onToggleSave: (id: string) => void;
 }
 
-const PostDetail = ({ post, onGoBack, onToggleLike, onToggleSave }: PostDetailProps) => {
+const PostDetail = ({ post }: PostDetailProps) => {
+  const { currentUser, toggleLike: onToggleLike, toggleSave: onToggleSave, addComment, handleGoBack: onGoBack } = useApp();
   const [commentText, setCommentText] = useState('');
 
   return (
@@ -101,7 +99,7 @@ const PostDetail = ({ post, onGoBack, onToggleLike, onToggleSave }: PostDetailPr
               onChange={e => setCommentText(e.target.value)}
             />
             {commentText && (
-              <button className="comment-submit" onClick={() => setCommentText('')}>
+              <button className="comment-submit" onClick={() => { addComment(post.id, commentText); setCommentText(''); }}>
                 Publicar
               </button>
             )}

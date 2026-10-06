@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import type { CatPost } from '../types/index.ts';
-import { catUsernames, captions, mockComments } from '../objects/mockData.ts';
+import { catUsernames, captions, mockComments, currentUser } from '../objects/mockData.ts';
 
 const randomItem = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
 const randomBetween = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -55,5 +55,19 @@ export const usePosts = () => {
     setPosts(prev => prev.map(p => p.id === id ? { ...p, saved: !p.saved } : p));
   };
 
-  return { posts, loading, error, toggleLike, toggleSave };
+  const addComment = (id: string, text: string) => {
+    const trimmedText = text.trim();
+    if (!trimmedText) return;
+    const comment = {
+      id: crypto.randomUUID(),
+      username: currentUser.username,
+      text: trimmedText,
+      time: 'Ahora',
+    };
+    setPosts(prev => prev.map(post => post.id === id
+      ? { ...post, comments: [...post.comments, comment] }
+      : post));
+  };
+
+  return { posts, loading, error, toggleLike, toggleSave, addComment };
 };

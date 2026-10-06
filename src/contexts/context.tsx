@@ -1,79 +1,37 @@
-import { createContext, useState, useContext } from 'react';
+import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { usePosts } from '../hooks/usePost.ts';
+import { currentUser } from '../objects/mockData.ts';
 import type { AppView, CatPost } from '../types/index.ts';
+import { AppContext } from './AppContext.ts';
 
-// 1. Definimos el tipo de lo que va a tener nuestro contexto (TypeScript)
-interface AppContextType {
-  posts: CatPost[]; // o el tipo que retorne tu hook usePosts
-  loading: boolean;
-  error: any;
-  currentView: AppView;
-  selectedPost: CatPost | null;
-  scrollPosition: number;
-  toggleLike: (id: string) => void; // ajusta los tipos según tu hook
-  toggleSave: (id: string) => void;
-  handleSelectPost: (post: CatPost) => void;
-  handleGoBack: () => void;
-  setCurrentView: (view: AppView) => void;
-}
-
-// 2. Creamos el contexto. Inicialmente le pasamos 'undefined'
-export const AppContext = createContext<AppContextType | undefined>(undefined);
-
-// 3. Creamos el Proveedor. ¡AQUÍ ADENTRO VA TODA LA LÓGICA!
 export function AppProvider({ children }: { children: ReactNode }) {
-  // Los hooks y estados ahora viven felizmente DENTRO del componente
-  const { posts, loading, error, toggleLike, toggleSave } = usePosts();
+  const { posts, loading, error, toggleLike, toggleSave, addComment } = usePosts();
   const [currentView, setCurrentView] = useState<AppView>('feed');
-  const [selectedPost, setSelectedPost] = useState<CatPost | null>(null);
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  // Derivar el detalle evita mostrar una copia desactualizada al interactuar.
+  const selectedPost = posts.find(post => post.id === selectedPostId) ?? null;
 
   const handleSelectPost = (post: CatPost) => {
-    console.log('scroll guardado:', window.scrollY);
     setScrollPosition(window.scrollY);
-    setSelectedPost(post);
+    setSelectedPostId(post.id);
     setCurrentView('detail');
     window.scrollTo({ top: 0 });
   };
-
   const handleGoBack = () => {
-    console.log('scroll a restaurar:', scrollPosition);
-    setSelectedPost(null);
+    setSelectedPostId(null);
     setCurrentView('feed');
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        console.log('ejecutando scroll a:', scrollPosition);
-        window.scrollTo({ top: scrollPosition });
-      }); 
+      requestAnimationFrame(() => window.scrollTo({ top: scrollPosition }));
     });
   };
-
-  // 4. Pasamos TODO al objeto 'value' del proveedor
   return (
-    <AppContext.Provider value={{ 
-      posts, 
-      loading, 
-      error, 
-      toggleLike, 
-      toggleSave, 
-      currentView, 
-      selectedPost, 
-      scrollPosition, 
-      handleSelectPost, 
-      handleGoBack,
-      setCurrentView
+    <AppContext.Provider value={{
+      posts, loading, error, currentUser, toggleLike, toggleSave, addComment,
+      currentView, selectedPost, handleSelectPost, handleGoBack, setCurrentView,
     }}>
       {children}
     </AppContext.Provider>
   );
 }
-
-export function useApp() {
-  const context = useContext(AppContext);
-  if (!context) {
-    throw new Error('useApp debe ser usado dentro de un AppProvider');
-  }
-  return context;
-}
-

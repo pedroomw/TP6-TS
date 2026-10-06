@@ -1,14 +1,10 @@
 import './Header.css';
-import type { AppView } from '../../types/index.ts';
-import { currentUser } from '../../objects/mockData.ts';
+import { useApp } from '../../hooks/useApp.ts';
 
-interface HeaderProps {
-  currentView: AppView;
-  onGoFeed: () => void;
-  onGoProfile: () => void;
-}
-
-const Header = ({ currentView, onGoFeed, onGoProfile }: HeaderProps) => {
+const Header = () => {
+  const { currentUser, setCurrentView } = useApp();
+  const onGoFeed = () => setCurrentView('feed');
+  const onGoProfile = () => setCurrentView('profile');
   return (
     <header>
       {/* Tu logo existente */}

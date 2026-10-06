@@ -1,13 +1,8 @@
 import './Profile.css';
-import { currentUser } from '../../objects/mockData.ts';
-import type { CatPost } from '../../types/index.ts';
+import { useApp } from '../../hooks/useApp.ts';
 
-interface ProfileProps {
-  posts: CatPost[];
-  onSelectPost: (post: CatPost) => void;
-}
-
-const Profile = ({ posts, onSelectPost }: ProfileProps) => {
+const Profile = () => {
+  const { posts, currentUser, handleSelectPost: onSelectPost } = useApp();
   return (
     <div className="profile-wrapper">
 

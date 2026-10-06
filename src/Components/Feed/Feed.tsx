@@ -1,18 +1,10 @@
 import './Feed.css';
 import Stories from '../Stories/Stories.tsx';
 import Post from '../Post/Post.tsx';        
-import type { CatPost } from '../../types/index.ts';
+import { useApp } from '../../hooks/useApp.ts';
 
-interface FeedProps {
-  posts: CatPost[];
-  loading: boolean;
-  error: string | null;
-  onSelectPost: (post: CatPost) => void;
-  onToggleLike: (id: string) => void;
-  onToggleSave: (id: string) => void;
-}
-
-const Feed = ({ posts, loading, error, onSelectPost, onToggleLike, onToggleSave }: FeedProps) => {
+const Feed = () => {
+  const { posts, loading, error } = useApp();
   return (
     <section className="feed">
       <Stories />   
@@ -21,14 +13,10 @@ const Feed = ({ posts, loading, error, onSelectPost, onToggleLike, onToggleSave 
 
       <h2 className="feed-title">Trending</h2>
       <div className="feed-grid">
-        {posts.map((post, i) => (
+        {posts.map(post => (
           <Post
             key={post.id}
             post={post}
-            onSelectPost={onSelectPost}
-            onToggleLike={onToggleLike}
-            onToggleSave={onToggleSave}
-            index={i}
           />
         ))}
       </div>

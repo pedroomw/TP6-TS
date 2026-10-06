@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import './Post.css';
 import type { CatPost } from '../../types/index.ts';
-import { currentUser } from '../../objects/mockData.ts';
+import { useApp } from '../../hooks/useApp.ts';
 
 interface PostProps {
   post: CatPost;
-  onSelectPost: (post: CatPost) => void;
-  onToggleLike: (id: string) => void;
-  onToggleSave: (id: string) => void;
-  index: number;
 }
 
-const Post = ({ post, onSelectPost, onToggleLike, onToggleSave }: PostProps) => {
+const Post = ({ post }: PostProps) => {
+  const { currentUser, toggleLike: onToggleLike, toggleSave: onToggleSave, addComment, handleSelectPost: onSelectPost } = useApp();
   const [commentText, setCommentText] = useState('');
 
   const handleDoubleTap = () => {
@@ -95,7 +92,7 @@ const Post = ({ post, onSelectPost, onToggleLike, onToggleSave }: PostProps) => 
           onChange={e => setCommentText(e.target.value)}
         />
         {commentText && (
-          <button className="comment-submit" onClick={() => setCommentText('')}>
+          <button className="comment-submit" onClick={() => { addComment(post.id, commentText); setCommentText(''); }}>
             Publicar
           </button>
         )}

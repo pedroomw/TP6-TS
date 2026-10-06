@@ -8,7 +8,7 @@ interface StoryProps {
   index: number;
 }
 
-const Story = ({ username, avatar, isOwn = false, index }: StoryProps) => {
+const Story = ({ username, avatar }: StoryProps) => {
   const [viewed, setViewed] = useState(false);
 
   return (

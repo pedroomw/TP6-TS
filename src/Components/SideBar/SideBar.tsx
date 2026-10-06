@@ -1,7 +1,6 @@
 import './SideBar.css'
 import SideBarProfile from "../SideBarProfile/SideBarProfile.tsx"
-import type { User } from "../../types/index.ts"
-import { useApp } from '../../context/AppContext.js';
+import { useApp } from '../../hooks/useApp.ts';
 
 const SideBar = () =>
     {
